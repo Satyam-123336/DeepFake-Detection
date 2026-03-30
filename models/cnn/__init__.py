@@ -1,0 +1,1 @@
+"""CNN models for visual artifact detection."""
