@@ -1,0 +1,1 @@
+"""Visual artifact detection package."""

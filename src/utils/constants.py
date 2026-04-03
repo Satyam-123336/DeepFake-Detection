@@ -1,0 +1,9 @@
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
+
+LEFT_EYE_LANDMARKS = [33, 160, 158, 133, 153, 144]
+RIGHT_EYE_LANDMARKS = [362, 385, 387, 263, 373, 380]
+UPPER_LIP_LANDMARKS = [13, 312, 311, 310, 415]
+LOWER_LIP_LANDMARKS = [14, 87, 178, 88, 95]
