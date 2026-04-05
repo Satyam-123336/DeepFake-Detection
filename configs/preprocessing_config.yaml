@@ -1,0 +1,16 @@
+video:
+  supported_extensions:
+    - .mp4
+    - .avi
+    - .mov
+  min_fps: 10
+  max_duration_seconds: 180
+
+keyframes:
+  strategy: interval
+  interval_seconds: 0.5
+  min_face_confidence: 0.6
+
+landmarks:
+  backend: mediapipe
+  max_num_faces: 1

@@ -1,0 +1,11 @@
+cnn:
+  input_size: 128
+  num_classes: 2
+  learning_rate: 0.001
+  batch_size: 16
+  epochs: 10
+
+behavioral:
+  blink_ear_threshold: 0.21
+  blink_min_consecutive_frames: 2
+  lipsync_window: 12
