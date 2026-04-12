@@ -160,7 +160,7 @@ export default function JobTracker(props: JobTrackerProps) {
               <div className="summary-item">
                 <span>Confidence</span>
                 <strong>
-                  {Math.round((job.result.analysis?.scoring?.confidence_score || 0.5) * 100)}%
+                  {Math.round((job.result.analysis?.scoring?.confidence_score || 0) * 100)}%
                 </strong>
               </div>
               <div className="summary-item">

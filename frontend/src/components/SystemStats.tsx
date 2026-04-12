@@ -6,8 +6,19 @@ import "./SystemStats.css";
 export default function SystemStats() {
   const apiBase = (import.meta as any).env?.VITE_API_BASE_URL || "http://localhost:8000";
   const [stats, setStats] = useState<any>(null);
+  const [history, setHistory] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
+
+  const formatDuration = (seconds: number) => {
+    if (!seconds || seconds < 0) return "0s";
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+    if (hrs > 0) return `${hrs}h ${mins}m ${secs}s`;
+    if (mins > 0) return `${mins}m ${secs}s`;
+    return `${secs}s`;
+  };
 
   useEffect(() => {
     fetchStats();
@@ -18,7 +29,19 @@ export default function SystemStats() {
   const fetchStats = async () => {
     try {
       const response = await axios.get(`${apiBase}/api/stats`);
-      setStats(response.data);
+      const payload = response.data;
+      setStats(payload);
+      setHistory((prev) => {
+        const point = {
+          time: new Date().toLocaleTimeString(),
+          totalInferences: payload?.optimization?.total_inferences || 0,
+          cacheHits: payload?.optimization?.cache_hits || 0,
+          activeJobs: payload?.active_jobs || 0,
+          cacheHitRate: ((payload?.optimization?.cache_hit_rate || 0) * 100),
+        };
+        return [...prev.slice(-19), point];
+      });
+      setError("");
       setLoading(false);
     } catch (err: any) {
       setError(err.message);
@@ -46,23 +69,24 @@ export default function SystemStats() {
 
   const optimization = stats?.optimization || {};
   const cache = stats?.cache || {};
+  const services = stats?.services || {};
 
-  const mockChartData = [
-    { time: "12:00", inferences: 5, cached: 2 },
-    { time: "12:15", inferences: 8, cached: 5 },
-    { time: "12:30", inferences: 6, cached: 4 },
-    { time: "12:45", inferences: 10, cached: 7 },
-    { time: "1:00", inferences: 9, cached: 6 },
-    { time: "1:15", inferences: 12, cached: 9 },
+  const loadBreakdown = [
+    { category: "Cache Hits", value: optimization.cache_hits || 0 },
+    { category: "Recomputed", value: optimization.inferences_recomputed || 0 },
+    { category: "Active Jobs", value: stats?.active_jobs || 0 },
   ];
 
-  const modulePerf = [
-    { module: "Preprocessing", time: 4.2, cpu: 45 },
-    { module: "Behavioral", time: 3.1, cpu: 38 },
-    { module: "Visual", time: 5.7, cpu: 62 },
-    { module: "NLP", time: 2.3, cpu: 28 },
-    { module: "Scoring", time: 1.2, cpu: 15 },
-  ];
+  const latestTrendPoint = history[history.length - 1] || {
+    totalInferences: optimization.total_inferences || 0,
+    cacheHits: optimization.cache_hits || 0,
+  };
+
+  const cacheEfficiencyMsg = (cache.hit_rate || 0) >= 0.5
+    ? "excellent cache utilization"
+    : (cache.hit_rate || 0) >= 0.25
+      ? "moderate cache utilization"
+      : "cache warming in progress";
 
   return (
     <div className="stats-container">
@@ -95,8 +119,8 @@ export default function SystemStats() {
         <div className="metric-card">
           <div className="metric-icon">⏱️</div>
           <div className="metric-data">
-            <span className="label">Time Saved</span>
-            <span className="value">{((optimization.cache_hits || 0) * 30).toFixed(0)}s</span>
+            <span className="label">Uptime</span>
+            <span className="value">{formatDuration(stats?.uptime_seconds || 0)}</span>
           </div>
         </div>
       </div>
@@ -110,43 +134,43 @@ export default function SystemStats() {
           <div className="chart-card full-width">
             <h3>Inference Timeline</h3>
             <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={mockChartData}>
+              <LineChart data={history}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="inferences" stroke="#6366f1" strokeWidth={2} name="Total Inferences" />
-                <Line type="monotone" dataKey="cached" stroke="#22c55e" strokeWidth={2} name="From Cache" />
+                <Line type="monotone" dataKey="totalInferences" stroke="#6366f1" strokeWidth={2} name="Total Inferences" />
+                <Line type="monotone" dataKey="cacheHits" stroke="#22c55e" strokeWidth={2} name="Cache Hits" />
               </LineChart>
             </ResponsiveContainer>
           </div>
 
-          {/* Module Performance */}
+          {/* Load Breakdown */}
           <div className="chart-card">
-            <h3>Module Execution Time</h3>
+            <h3>Current Load Breakdown</h3>
             <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={modulePerf}>
+              <BarChart data={loadBreakdown}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="module" angle={-45} textAnchor="end" height={80} />
+                <XAxis dataKey="category" angle={-30} textAnchor="end" height={70} />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="time" fill="#6366f1" name="Time (sec)" />
+                <Bar dataKey="value" fill="#6366f1" name="Count" />
               </BarChart>
             </ResponsiveContainer>
           </div>
 
-          {/* CPU Usage */}
+          {/* Cache Hit Rate Trend */}
           <div className="chart-card">
-            <h3>CPU Usage by Module</h3>
+            <h3>Cache Hit Rate Trend</h3>
             <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={modulePerf}>
+              <LineChart data={history}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="module" angle={-45} textAnchor="end" height={80} />
+                <XAxis dataKey="time" />
                 <YAxis domain={[0, 100]} />
                 <Tooltip />
-                <Bar dataKey="cpu" fill="#f59e0b" name="CPU %" />
-              </BarChart>
+                <Line type="monotone" dataKey="cacheHitRate" stroke="#f59e0b" strokeWidth={2} name="Hit Rate %" />
+              </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
@@ -204,12 +228,12 @@ export default function SystemStats() {
               <strong>{stats.active_jobs || 0}</strong>
             </div>
             <div className="detail-row">
-              <span>Average Time</span>
-              <strong>~16.5s</strong>
+              <span>Uptime</span>
+              <strong>{formatDuration(stats?.uptime_seconds || 0)}</strong>
             </div>
             <div className="detail-row">
-              <span>Max Parallel</span>
-              <strong>4</strong>
+              <span>Total Inferences</span>
+              <strong>{optimization.total_inferences || 0}</strong>
             </div>
             <div className="detail-row">
               <span>Queue Depth</span>
@@ -224,20 +248,20 @@ export default function SystemStats() {
         <h2>🏥 System Health</h2>
 
         <div className="health-grid">
-          <div className="health-item good">
+          <div className={`health-item ${services.api === "active" ? "good" : "warning"}`}>
             <div className="health-icon">✓</div>
             <span>API Server</span>
-            <em>Operational</em>
+            <em>{services.api === "active" ? "Operational" : "Degraded"}</em>
           </div>
-          <div className="health-item good">
+          <div className={`health-item ${services.pipeline === "active" ? "good" : "warning"}`}>
             <div className="health-icon">✓</div>
             <span>Pipeline</span>
-            <em>Running</em>
+            <em>{services.pipeline === "active" ? "Running" : "Degraded"}</em>
           </div>
-          <div className="health-item good">
+          <div className={`health-item ${services.cache === "active" ? "good" : "warning"}`}>
             <div className="health-icon">✓</div>
             <span>Cache Layer</span>
-            <em>Active</em>
+            <em>{services.cache === "active" ? "Active" : "Degraded"}</em>
           </div>
           <div className="health-item good">
             <div className="health-icon">✓</div>
@@ -252,13 +276,13 @@ export default function SystemStats() {
         <h2>💡 Optimization Insights</h2>
         <ul>
           <li>
-            ✓ <strong>Cache efficiency:</strong> {((cache.hit_rate || 0) * 100).toFixed(1)}% hit rate - excellent performance
+            ✓ <strong>Cache efficiency:</strong> {((cache.hit_rate || 0) * 100).toFixed(1)}% hit rate - {cacheEfficiencyMsg}
           </li>
           <li>
-            ✓ <strong>Visual module:</strong> Longest execution time - consider GPU acceleration if available
+            ✓ <strong>Inference trend:</strong> {latestTrendPoint.totalInferences} total runs, {latestTrendPoint.cacheHits} served from cache
           </li>
           <li>
-            ✓ <strong>Current load:</strong> {stats.active_jobs || 0} active jobs - system operating well
+            ✓ <strong>Current load:</strong> {stats.active_jobs || 0} active jobs in queue/processing
           </li>
           <li>
             💡 <strong>Tip:</strong> Reanalyzing same video? Cache will return in &lt;1ms

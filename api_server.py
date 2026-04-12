@@ -7,6 +7,7 @@ import os
 import shutil
 import tempfile
 import uuid
+from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -25,10 +26,22 @@ from src.utils.io import ensure_dir
 # CONFIGURATION
 # ============================================================================
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Manage app startup and shutdown lifecycle."""
+    print("DeepFake Detection API server starting...")
+    print(f"Upload dir: {UPLOAD_DIR.resolve()}")
+    print(f"Process dir: {PROCESSED_DIR.resolve()}")
+    print(f"Jobs dir: {JOBS_DIR.resolve()}")
+    yield
+    print("DeepFake Detection API server shutting down...")
+
+
 app = FastAPI(
     title="DeepFake Detection API",
     description="Production-grade API for video analysis",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 # Add CORS middleware
@@ -48,6 +61,7 @@ JOBS_DIR = Path("data/jobs")
 ensure_dir(UPLOAD_DIR)
 ensure_dir(PROCESSED_DIR)
 ensure_dir(JOBS_DIR)
+APP_START_TIME = datetime.now()
 
 # In-memory job tracking
 jobs_db: dict[str, dict[str, Any]] = {}
@@ -155,8 +169,13 @@ async def get_stats() -> JSONResponse:
         {
             "optimization": opt_stats,
             "cache": cache_stats,
-            "uptime_seconds": int((datetime.now() - datetime.now()).total_seconds()),
+            "uptime_seconds": int((datetime.now() - APP_START_TIME).total_seconds()),
             "active_jobs": len([j for j in jobs_db.values() if j["status"] in ["queued", "processing"]]),
+            "services": {
+                "api": "active",
+                "cache": "active",
+                "pipeline": "active",
+            },
         }
     )
 
@@ -435,33 +454,13 @@ async def http_exception_handler(request, exc):
 
 
 # ============================================================================
-# STARTUP HOOKS
-# ============================================================================
-
-
-@app.on_event("startup")
-async def startup_event():
-    """Startup tasks."""
-    print("🚀 DeepFake Detection API server starting...")
-    print(f"📁 Upload dir: {UPLOAD_DIR.resolve()}")
-    print(f"📁 Process dir: {PROCESSED_DIR.resolve()}")
-    print(f"📁 Jobs dir: {JOBS_DIR.resolve()}")
-
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    """Cleanup on shutdown."""
-    print("🛑 DeepFake Detection API server shutting down...")
-
-
-# ============================================================================
 # ENTRY POINT
 # ============================================================================
 
 if __name__ == "__main__":
     print("Starting DeepFake Detection API server...")
     uvicorn.run(
-        app,
+        "api_server:app",
         host="0.0.0.0",
         port=8000,
         reload=True,

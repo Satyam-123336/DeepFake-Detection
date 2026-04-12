@@ -38,8 +38,28 @@ export default function AnalysisResults(props: AnalysisResultsProps) {
   const moduleScores = scoring.module_scores || {};
   const confidence = scoring.confidence_score || 0;
   const riskLevel = scoring.risk_level || "unknown";
+  const moduleWeights: { [key: string]: number } = {
+    blink: 0.2,
+    lipsync: 0.25,
+    visual: 0.35,
+    watermark: 0.1,
+    nlp: 0.1,
+  };
   const blinkUnavailable = (analysis.behavioral?.blink_count ?? 0) === 0 && (analysis.behavioral?.blink_irregularity ?? 1) >= 0.95;
   const lipsyncUnavailable = (analysis.behavioral?.lipsync_error ?? 1) >= 0.99;
+  const transcriptUnavailable = (analysis.transcript?.method || "").toLowerCase() === "unavailable";
+  const reasonList: string[] = scoring.reasons || [];
+  const noSuspiciousReason = reasonList.length === 1 && reasonList[0] === "No single module exceeded suspicious threshold";
+
+  const evidenceSignals = {
+    face: Boolean(analysis.visual?.face_path),
+    blink: !blinkUnavailable,
+    lipsync: !lipsyncUnavailable,
+    transcript: !transcriptUnavailable,
+    watermark: (analysis.watermark?.confidence || 0) > 0,
+  };
+  const availableSignalCount = Object.values(evidenceSignals).filter(Boolean).length;
+  const evidenceQuality = availableSignalCount / Object.keys(evidenceSignals).length;
 
   // Prepare chart data
   const moduleNames: { [key: string]: string } = {
@@ -55,9 +75,15 @@ export default function AnalysisResults(props: AnalysisResultsProps) {
     value: toPercent(value as number),
   }));
 
+  // Weighted contribution points add up to the final confidence score shown above.
+  const contributionData = Object.entries(moduleScores).map(([key, value]) => ({
+    name: moduleNames[key] || key,
+    value: toPercent((value as number) * (moduleWeights[key] ?? 0)),
+  }));
+
   const COLORS = ["#6366f1", "#8b5cf6", "#ec4899", "#22c55e", "#f59e0b"];
 
-  const pieLegendData = chartData.map((item, index) => ({
+  const pieLegendData = contributionData.map((item, index) => ({
     ...item,
     color: COLORS[index % COLORS.length],
   }));
@@ -91,6 +117,7 @@ export default function AnalysisResults(props: AnalysisResultsProps) {
           <div className="metric-value" style={{ color: getRiskColor(riskLevel) }}>
             {toPercent(confidence)}%
           </div>
+          <p className="small-text">Weighted aggregate of all modules</p>
           <div className="confidence-bar">
             <div
               className="bar-fill"
@@ -105,9 +132,9 @@ export default function AnalysisResults(props: AnalysisResultsProps) {
         <div className="metric-card">
           <div className="metric-label">EVIDENCE QUALITY</div>
           <div className="metric-sublabel">
-            {toPercent(confidence) >= 75 ? "🟢 High" : toPercent(confidence) >= 50 ? "🟡 Medium" : "🔴 Low"}
+            {toPercent(evidenceQuality) >= 75 ? "🟢 High" : toPercent(evidenceQuality) >= 50 ? "🟡 Medium" : "🔴 Low"}
           </div>
-          <p className="small-text">Based on available signals</p>
+          <p className="small-text">{availableSignalCount}/5 signals available</p>
         </div>
 
         <div className="metric-card">
@@ -140,11 +167,11 @@ export default function AnalysisResults(props: AnalysisResultsProps) {
 
           {/* Pie Chart */}
           <div className="chart-card">
-            <h3>Risk Distribution</h3>
+            <h3>Weighted Contribution to Final Score</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
-                <Pie data={chartData} cx="50%" cy="50%" labelLine={false} label={false} outerRadius="72%" fill="#8884d8" dataKey="value">
-                  {chartData.map((_entry, index) => (
+                <Pie data={contributionData} cx="50%" cy="50%" labelLine={false} label={false} outerRadius="72%" fill="#8884d8" dataKey="value">
+                  {contributionData.map((_entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
@@ -181,11 +208,11 @@ export default function AnalysisResults(props: AnalysisResultsProps) {
       {/* Reasons */}
       <div className="reasons-section">
         <h2>🔍 Analysis Reasons</h2>
-        {scoring.reasons && scoring.reasons.length > 0 ? (
+        {reasonList.length > 0 ? (
           <div className="reasons-list">
-            {scoring.reasons.map((reason: string, idx: number) => (
-              <div key={idx} className="reason-item warning">
-                <AlertTriangle size={18} />
+            {reasonList.map((reason: string, idx: number) => (
+              <div key={idx} className={`reason-item ${noSuspiciousReason ? "success" : "warning"}`}>
+                {noSuspiciousReason ? <CheckCircle size={18} /> : <AlertTriangle size={18} />}
                 <span>{reason}</span>
               </div>
             ))}
@@ -206,12 +233,16 @@ export default function AnalysisResults(props: AnalysisResultsProps) {
           <div className="detail-group">
             <h3>Behavioral Metrics</h3>
             <div className="detail-item">
-              <span>Blink Events</span>
-              <strong>{blinkUnavailable ? "N/A" : (analysis.behavioral?.blink_count || 0)}</strong>
+              <span>{blinkUnavailable ? "Blink Events (detected)" : "Blink Events"}</span>
+              <strong>{analysis.behavioral?.blink_count ?? 0}</strong>
             </div>
             <div className="detail-item">
-              <span>Lip-Sync Score</span>
-              <strong>{lipsyncUnavailable ? "N/A" : `${((analysis.behavioral?.lipsync_correlation || 0) * 100).toFixed(1)}%`}</strong>
+              <span>{lipsyncUnavailable ? "Lip-Sync Score (baseline)" : "Lip-Sync Score"}</span>
+              <strong>
+                {lipsyncUnavailable
+                  ? `${toPercent(moduleScores.lipsync || 0)}%`
+                  : `${((analysis.behavioral?.lipsync_correlation || 0) * 100).toFixed(1)}%`}
+              </strong>
             </div>
           </div>
 
@@ -231,11 +262,11 @@ export default function AnalysisResults(props: AnalysisResultsProps) {
             <h3>NLP Analysis</h3>
             <div className="detail-item">
               <span>Speech Segments</span>
-              <strong>{analysis.transcript?.speech_segments || 0}</strong>
+              <strong>{transcriptUnavailable ? "N/A" : (analysis.transcript?.speech_segments || 0)}</strong>
             </div>
             <div className="detail-item">
               <span>Transcript Method</span>
-              <strong>{analysis.transcript?.method || "Unknown"}</strong>
+              <strong>{transcriptUnavailable ? "N/A" : (analysis.transcript?.method || "Unknown")}</strong>
             </div>
           </div>
         </div>

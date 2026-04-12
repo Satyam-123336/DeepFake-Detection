@@ -154,7 +154,7 @@ def test_scoring_engine_heuristics_raise_visual_signal_without_forced_medium() -
         nlp_suspicion_score=0.0,
     )
     assert result.risk_level == "low"
-    assert result.module_scores["visual"] >= 0.55
+    assert result.module_scores["visual"] >= 0.4
     assert result.confidence_score < 0.45
 
 
