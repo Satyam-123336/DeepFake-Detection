@@ -1,0 +1,5 @@
+{
+  "tests/test_scoring_engine.py::test_scoring_engine_escalates_strong_visual_signal_to_medium": true,
+  "tests/test_scoring_engine.py::test_scoring_engine_user_reported_ai_like_case_not_low": true,
+  "tests/test_scoring_engine.py::test_scoring_engine_heuristics_catch_ai_like_visual_even_when_cnn_is_zero": true
+}

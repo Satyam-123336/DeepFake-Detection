@@ -1,0 +1,11 @@
+{
+  "timestamp_utc": "2026-03-21T14:19:31.050691+00:00",
+  "stage": "completed",
+  "split": "test",
+  "manifest_path": "data\\splits_1000\\test.csv",
+  "face_manifest_path": "data\\splits_1000\\test_faces.csv",
+  "total_videos_in_split": 150,
+  "processed_videos_this_run": 34,
+  "skipped_videos_this_run": 0,
+  "total_faces": 7396
+} 
