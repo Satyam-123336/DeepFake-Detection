@@ -1,6 +1,0 @@
-﻿filename,source,type,expected_demo_outcome,notes
-demo_real_01.mp4,data/raw/real/ffc23_real_000.mp4,real,real,"Training real sample"
-demo_real_02.mp4,data/raw/real/ffc23_real_001.mp4,real,real,"Training real sample"
-demo_real_03.mp4,data/raw/real/ffc23_real_002.mp4,real,real,"Training real sample"
-demo_ai_medium_confidence.mp4,data/raw/fake/ffc23_deepfakedetection_01_04__talking_angry_couch__0XUW13RW.mp4,fake,ai_medium,"Model fake_prob ~0.985 in local run"
-demo_ai_hard_case.mp4,data/raw/fake/ffc23_deepfakedetection_01_03__talking_against_wall__JZUXXFRB.mp4,fake,ai_hard,"Hardest among sampled fakes; fake_prob ~0.946"
