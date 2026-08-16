@@ -1,5 +1,8 @@
 # RealityGuard AI: A Multi-Signal and Explainable Deepfake Detection Engine
 
+> **🏆 Research Paper Accepted!**
+> "RealityGuard AI: A Multi-Signal and Explainable Deepfake Detection Engine" has been accepted for presentation at the **AITA 2026 International Conference** and will be published in **Springer Lecture Notes in Networks and Systems (Scopus-indexed)**.
+
 This project implements a complete, end-to-end multi-signal deepfake detection pipeline, combining visual artifact analysis, behavioral inconsistencies (blink rate, lip-sync), and forensic watermarking detection.
 
 ## Key Features
