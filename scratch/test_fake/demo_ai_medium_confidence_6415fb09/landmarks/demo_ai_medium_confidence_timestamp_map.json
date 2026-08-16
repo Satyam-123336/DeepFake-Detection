@@ -1,0 +1,1839 @@
+{
+  "frames": [
+    {
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000000.jpg"
+    },
+    {
+      "frame_index": 4,
+      "timestamp_seconds": 0.16666666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000004.jpg"
+    },
+    {
+      "frame_index": 8,
+      "timestamp_seconds": 0.3333333333333333,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000008.jpg"
+    },
+    {
+      "frame_index": 12,
+      "timestamp_seconds": 0.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000012.jpg"
+    },
+    {
+      "frame_index": 16,
+      "timestamp_seconds": 0.6666666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000016.jpg"
+    },
+    {
+      "frame_index": 20,
+      "timestamp_seconds": 0.8333333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000020.jpg"
+    },
+    {
+      "frame_index": 24,
+      "timestamp_seconds": 1.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000024.jpg"
+    },
+    {
+      "frame_index": 28,
+      "timestamp_seconds": 1.1666666666666667,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000028.jpg"
+    },
+    {
+      "frame_index": 32,
+      "timestamp_seconds": 1.3333333333333333,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000032.jpg"
+    },
+    {
+      "frame_index": 36,
+      "timestamp_seconds": 1.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000036.jpg"
+    },
+    {
+      "frame_index": 40,
+      "timestamp_seconds": 1.6666666666666667,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000040.jpg"
+    },
+    {
+      "frame_index": 44,
+      "timestamp_seconds": 1.8333333333333333,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000044.jpg"
+    },
+    {
+      "frame_index": 48,
+      "timestamp_seconds": 2.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000048.jpg"
+    },
+    {
+      "frame_index": 52,
+      "timestamp_seconds": 2.1666666666666665,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000052.jpg"
+    },
+    {
+      "frame_index": 56,
+      "timestamp_seconds": 2.3333333333333335,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000056.jpg"
+    },
+    {
+      "frame_index": 60,
+      "timestamp_seconds": 2.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000060.jpg"
+    },
+    {
+      "frame_index": 64,
+      "timestamp_seconds": 2.6666666666666665,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000064.jpg"
+    },
+    {
+      "frame_index": 68,
+      "timestamp_seconds": 2.8333333333333335,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000068.jpg"
+    },
+    {
+      "frame_index": 72,
+      "timestamp_seconds": 3.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000072.jpg"
+    },
+    {
+      "frame_index": 76,
+      "timestamp_seconds": 3.1666666666666665,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000076.jpg"
+    },
+    {
+      "frame_index": 80,
+      "timestamp_seconds": 3.3333333333333335,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000080.jpg"
+    },
+    {
+      "frame_index": 84,
+      "timestamp_seconds": 3.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000084.jpg"
+    },
+    {
+      "frame_index": 88,
+      "timestamp_seconds": 3.6666666666666665,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000088.jpg"
+    },
+    {
+      "frame_index": 92,
+      "timestamp_seconds": 3.8333333333333335,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000092.jpg"
+    },
+    {
+      "frame_index": 96,
+      "timestamp_seconds": 4.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000096.jpg"
+    },
+    {
+      "frame_index": 100,
+      "timestamp_seconds": 4.166666666666667,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000100.jpg"
+    },
+    {
+      "frame_index": 104,
+      "timestamp_seconds": 4.333333333333333,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000104.jpg"
+    },
+    {
+      "frame_index": 108,
+      "timestamp_seconds": 4.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000108.jpg"
+    },
+    {
+      "frame_index": 112,
+      "timestamp_seconds": 4.666666666666667,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000112.jpg"
+    },
+    {
+      "frame_index": 116,
+      "timestamp_seconds": 4.833333333333333,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000116.jpg"
+    },
+    {
+      "frame_index": 120,
+      "timestamp_seconds": 5.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000120.jpg"
+    },
+    {
+      "frame_index": 124,
+      "timestamp_seconds": 5.166666666666667,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000124.jpg"
+    },
+    {
+      "frame_index": 128,
+      "timestamp_seconds": 5.333333333333333,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000128.jpg"
+    },
+    {
+      "frame_index": 132,
+      "timestamp_seconds": 5.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000132.jpg"
+    },
+    {
+      "frame_index": 136,
+      "timestamp_seconds": 5.666666666666667,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000136.jpg"
+    },
+    {
+      "frame_index": 140,
+      "timestamp_seconds": 5.833333333333333,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000140.jpg"
+    },
+    {
+      "frame_index": 144,
+      "timestamp_seconds": 6.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000144.jpg"
+    },
+    {
+      "frame_index": 148,
+      "timestamp_seconds": 6.166666666666667,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000148.jpg"
+    },
+    {
+      "frame_index": 152,
+      "timestamp_seconds": 6.333333333333333,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000152.jpg"
+    },
+    {
+      "frame_index": 156,
+      "timestamp_seconds": 6.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000156.jpg"
+    },
+    {
+      "frame_index": 160,
+      "timestamp_seconds": 6.666666666666667,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000160.jpg"
+    },
+    {
+      "frame_index": 164,
+      "timestamp_seconds": 6.833333333333333,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000164.jpg"
+    },
+    {
+      "frame_index": 168,
+      "timestamp_seconds": 7.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000168.jpg"
+    },
+    {
+      "frame_index": 172,
+      "timestamp_seconds": 7.166666666666667,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000172.jpg"
+    },
+    {
+      "frame_index": 176,
+      "timestamp_seconds": 7.333333333333333,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000176.jpg"
+    },
+    {
+      "frame_index": 180,
+      "timestamp_seconds": 7.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000180.jpg"
+    },
+    {
+      "frame_index": 184,
+      "timestamp_seconds": 7.666666666666667,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000184.jpg"
+    },
+    {
+      "frame_index": 188,
+      "timestamp_seconds": 7.833333333333333,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000188.jpg"
+    },
+    {
+      "frame_index": 192,
+      "timestamp_seconds": 8.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000192.jpg"
+    },
+    {
+      "frame_index": 196,
+      "timestamp_seconds": 8.166666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000196.jpg"
+    },
+    {
+      "frame_index": 200,
+      "timestamp_seconds": 8.333333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000200.jpg"
+    },
+    {
+      "frame_index": 204,
+      "timestamp_seconds": 8.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000204.jpg"
+    },
+    {
+      "frame_index": 208,
+      "timestamp_seconds": 8.666666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000208.jpg"
+    },
+    {
+      "frame_index": 212,
+      "timestamp_seconds": 8.833333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000212.jpg"
+    },
+    {
+      "frame_index": 216,
+      "timestamp_seconds": 9.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000216.jpg"
+    },
+    {
+      "frame_index": 220,
+      "timestamp_seconds": 9.166666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000220.jpg"
+    },
+    {
+      "frame_index": 224,
+      "timestamp_seconds": 9.333333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000224.jpg"
+    },
+    {
+      "frame_index": 228,
+      "timestamp_seconds": 9.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000228.jpg"
+    },
+    {
+      "frame_index": 232,
+      "timestamp_seconds": 9.666666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000232.jpg"
+    },
+    {
+      "frame_index": 236,
+      "timestamp_seconds": 9.833333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000236.jpg"
+    },
+    {
+      "frame_index": 240,
+      "timestamp_seconds": 10.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000240.jpg"
+    },
+    {
+      "frame_index": 244,
+      "timestamp_seconds": 10.166666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000244.jpg"
+    },
+    {
+      "frame_index": 248,
+      "timestamp_seconds": 10.333333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000248.jpg"
+    },
+    {
+      "frame_index": 252,
+      "timestamp_seconds": 10.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000252.jpg"
+    },
+    {
+      "frame_index": 256,
+      "timestamp_seconds": 10.666666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000256.jpg"
+    },
+    {
+      "frame_index": 260,
+      "timestamp_seconds": 10.833333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000260.jpg"
+    },
+    {
+      "frame_index": 264,
+      "timestamp_seconds": 11.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000264.jpg"
+    },
+    {
+      "frame_index": 268,
+      "timestamp_seconds": 11.166666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000268.jpg"
+    },
+    {
+      "frame_index": 272,
+      "timestamp_seconds": 11.333333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000272.jpg"
+    },
+    {
+      "frame_index": 276,
+      "timestamp_seconds": 11.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000276.jpg"
+    },
+    {
+      "frame_index": 280,
+      "timestamp_seconds": 11.666666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000280.jpg"
+    },
+    {
+      "frame_index": 284,
+      "timestamp_seconds": 11.833333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000284.jpg"
+    },
+    {
+      "frame_index": 288,
+      "timestamp_seconds": 12.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000288.jpg"
+    },
+    {
+      "frame_index": 292,
+      "timestamp_seconds": 12.166666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000292.jpg"
+    },
+    {
+      "frame_index": 296,
+      "timestamp_seconds": 12.333333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000296.jpg"
+    },
+    {
+      "frame_index": 300,
+      "timestamp_seconds": 12.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000300.jpg"
+    },
+    {
+      "frame_index": 304,
+      "timestamp_seconds": 12.666666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000304.jpg"
+    },
+    {
+      "frame_index": 308,
+      "timestamp_seconds": 12.833333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000308.jpg"
+    },
+    {
+      "frame_index": 312,
+      "timestamp_seconds": 13.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000312.jpg"
+    },
+    {
+      "frame_index": 316,
+      "timestamp_seconds": 13.166666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000316.jpg"
+    },
+    {
+      "frame_index": 320,
+      "timestamp_seconds": 13.333333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000320.jpg"
+    },
+    {
+      "frame_index": 324,
+      "timestamp_seconds": 13.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000324.jpg"
+    },
+    {
+      "frame_index": 328,
+      "timestamp_seconds": 13.666666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000328.jpg"
+    },
+    {
+      "frame_index": 332,
+      "timestamp_seconds": 13.833333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000332.jpg"
+    },
+    {
+      "frame_index": 336,
+      "timestamp_seconds": 14.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000336.jpg"
+    },
+    {
+      "frame_index": 340,
+      "timestamp_seconds": 14.166666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000340.jpg"
+    },
+    {
+      "frame_index": 344,
+      "timestamp_seconds": 14.333333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000344.jpg"
+    },
+    {
+      "frame_index": 348,
+      "timestamp_seconds": 14.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000348.jpg"
+    },
+    {
+      "frame_index": 352,
+      "timestamp_seconds": 14.666666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000352.jpg"
+    },
+    {
+      "frame_index": 356,
+      "timestamp_seconds": 14.833333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000356.jpg"
+    },
+    {
+      "frame_index": 360,
+      "timestamp_seconds": 15.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000360.jpg"
+    },
+    {
+      "frame_index": 364,
+      "timestamp_seconds": 15.166666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000364.jpg"
+    },
+    {
+      "frame_index": 368,
+      "timestamp_seconds": 15.333333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000368.jpg"
+    },
+    {
+      "frame_index": 372,
+      "timestamp_seconds": 15.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000372.jpg"
+    },
+    {
+      "frame_index": 376,
+      "timestamp_seconds": 15.666666666666666,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000376.jpg"
+    },
+    {
+      "frame_index": 380,
+      "timestamp_seconds": 15.833333333333334,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000380.jpg"
+    },
+    {
+      "frame_index": 384,
+      "timestamp_seconds": 16.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000384.jpg"
+    },
+    {
+      "frame_index": 388,
+      "timestamp_seconds": 16.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000388.jpg"
+    },
+    {
+      "frame_index": 392,
+      "timestamp_seconds": 16.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000392.jpg"
+    },
+    {
+      "frame_index": 396,
+      "timestamp_seconds": 16.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000396.jpg"
+    },
+    {
+      "frame_index": 400,
+      "timestamp_seconds": 16.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000400.jpg"
+    },
+    {
+      "frame_index": 404,
+      "timestamp_seconds": 16.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000404.jpg"
+    },
+    {
+      "frame_index": 408,
+      "timestamp_seconds": 17.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000408.jpg"
+    },
+    {
+      "frame_index": 412,
+      "timestamp_seconds": 17.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000412.jpg"
+    },
+    {
+      "frame_index": 416,
+      "timestamp_seconds": 17.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000416.jpg"
+    },
+    {
+      "frame_index": 420,
+      "timestamp_seconds": 17.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000420.jpg"
+    },
+    {
+      "frame_index": 424,
+      "timestamp_seconds": 17.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000424.jpg"
+    },
+    {
+      "frame_index": 428,
+      "timestamp_seconds": 17.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000428.jpg"
+    },
+    {
+      "frame_index": 432,
+      "timestamp_seconds": 18.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000432.jpg"
+    },
+    {
+      "frame_index": 436,
+      "timestamp_seconds": 18.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000436.jpg"
+    },
+    {
+      "frame_index": 440,
+      "timestamp_seconds": 18.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000440.jpg"
+    },
+    {
+      "frame_index": 444,
+      "timestamp_seconds": 18.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000444.jpg"
+    },
+    {
+      "frame_index": 448,
+      "timestamp_seconds": 18.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000448.jpg"
+    },
+    {
+      "frame_index": 452,
+      "timestamp_seconds": 18.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000452.jpg"
+    },
+    {
+      "frame_index": 456,
+      "timestamp_seconds": 19.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000456.jpg"
+    },
+    {
+      "frame_index": 460,
+      "timestamp_seconds": 19.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000460.jpg"
+    },
+    {
+      "frame_index": 464,
+      "timestamp_seconds": 19.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000464.jpg"
+    },
+    {
+      "frame_index": 468,
+      "timestamp_seconds": 19.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000468.jpg"
+    },
+    {
+      "frame_index": 472,
+      "timestamp_seconds": 19.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000472.jpg"
+    },
+    {
+      "frame_index": 476,
+      "timestamp_seconds": 19.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000476.jpg"
+    },
+    {
+      "frame_index": 480,
+      "timestamp_seconds": 20.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000480.jpg"
+    },
+    {
+      "frame_index": 484,
+      "timestamp_seconds": 20.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000484.jpg"
+    },
+    {
+      "frame_index": 488,
+      "timestamp_seconds": 20.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000488.jpg"
+    },
+    {
+      "frame_index": 492,
+      "timestamp_seconds": 20.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000492.jpg"
+    },
+    {
+      "frame_index": 496,
+      "timestamp_seconds": 20.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000496.jpg"
+    },
+    {
+      "frame_index": 500,
+      "timestamp_seconds": 20.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000500.jpg"
+    },
+    {
+      "frame_index": 504,
+      "timestamp_seconds": 21.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000504.jpg"
+    },
+    {
+      "frame_index": 508,
+      "timestamp_seconds": 21.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000508.jpg"
+    },
+    {
+      "frame_index": 512,
+      "timestamp_seconds": 21.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000512.jpg"
+    },
+    {
+      "frame_index": 516,
+      "timestamp_seconds": 21.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000516.jpg"
+    },
+    {
+      "frame_index": 520,
+      "timestamp_seconds": 21.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000520.jpg"
+    },
+    {
+      "frame_index": 524,
+      "timestamp_seconds": 21.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000524.jpg"
+    },
+    {
+      "frame_index": 528,
+      "timestamp_seconds": 22.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000528.jpg"
+    },
+    {
+      "frame_index": 532,
+      "timestamp_seconds": 22.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000532.jpg"
+    },
+    {
+      "frame_index": 536,
+      "timestamp_seconds": 22.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000536.jpg"
+    },
+    {
+      "frame_index": 540,
+      "timestamp_seconds": 22.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000540.jpg"
+    },
+    {
+      "frame_index": 544,
+      "timestamp_seconds": 22.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000544.jpg"
+    },
+    {
+      "frame_index": 548,
+      "timestamp_seconds": 22.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000548.jpg"
+    },
+    {
+      "frame_index": 552,
+      "timestamp_seconds": 23.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000552.jpg"
+    },
+    {
+      "frame_index": 556,
+      "timestamp_seconds": 23.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000556.jpg"
+    },
+    {
+      "frame_index": 560,
+      "timestamp_seconds": 23.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000560.jpg"
+    },
+    {
+      "frame_index": 564,
+      "timestamp_seconds": 23.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000564.jpg"
+    },
+    {
+      "frame_index": 568,
+      "timestamp_seconds": 23.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000568.jpg"
+    },
+    {
+      "frame_index": 572,
+      "timestamp_seconds": 23.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000572.jpg"
+    },
+    {
+      "frame_index": 576,
+      "timestamp_seconds": 24.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000576.jpg"
+    },
+    {
+      "frame_index": 580,
+      "timestamp_seconds": 24.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000580.jpg"
+    },
+    {
+      "frame_index": 584,
+      "timestamp_seconds": 24.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000584.jpg"
+    },
+    {
+      "frame_index": 588,
+      "timestamp_seconds": 24.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000588.jpg"
+    },
+    {
+      "frame_index": 592,
+      "timestamp_seconds": 24.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000592.jpg"
+    },
+    {
+      "frame_index": 596,
+      "timestamp_seconds": 24.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000596.jpg"
+    },
+    {
+      "frame_index": 600,
+      "timestamp_seconds": 25.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000600.jpg"
+    },
+    {
+      "frame_index": 604,
+      "timestamp_seconds": 25.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000604.jpg"
+    },
+    {
+      "frame_index": 608,
+      "timestamp_seconds": 25.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000608.jpg"
+    },
+    {
+      "frame_index": 612,
+      "timestamp_seconds": 25.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000612.jpg"
+    },
+    {
+      "frame_index": 616,
+      "timestamp_seconds": 25.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000616.jpg"
+    },
+    {
+      "frame_index": 620,
+      "timestamp_seconds": 25.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000620.jpg"
+    },
+    {
+      "frame_index": 624,
+      "timestamp_seconds": 26.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000624.jpg"
+    },
+    {
+      "frame_index": 628,
+      "timestamp_seconds": 26.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000628.jpg"
+    },
+    {
+      "frame_index": 632,
+      "timestamp_seconds": 26.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000632.jpg"
+    },
+    {
+      "frame_index": 636,
+      "timestamp_seconds": 26.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000636.jpg"
+    },
+    {
+      "frame_index": 640,
+      "timestamp_seconds": 26.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000640.jpg"
+    },
+    {
+      "frame_index": 644,
+      "timestamp_seconds": 26.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000644.jpg"
+    },
+    {
+      "frame_index": 648,
+      "timestamp_seconds": 27.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000648.jpg"
+    },
+    {
+      "frame_index": 652,
+      "timestamp_seconds": 27.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000652.jpg"
+    },
+    {
+      "frame_index": 656,
+      "timestamp_seconds": 27.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000656.jpg"
+    },
+    {
+      "frame_index": 660,
+      "timestamp_seconds": 27.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000660.jpg"
+    },
+    {
+      "frame_index": 664,
+      "timestamp_seconds": 27.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000664.jpg"
+    },
+    {
+      "frame_index": 668,
+      "timestamp_seconds": 27.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000668.jpg"
+    },
+    {
+      "frame_index": 672,
+      "timestamp_seconds": 28.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000672.jpg"
+    },
+    {
+      "frame_index": 676,
+      "timestamp_seconds": 28.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000676.jpg"
+    },
+    {
+      "frame_index": 680,
+      "timestamp_seconds": 28.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000680.jpg"
+    },
+    {
+      "frame_index": 684,
+      "timestamp_seconds": 28.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000684.jpg"
+    },
+    {
+      "frame_index": 688,
+      "timestamp_seconds": 28.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000688.jpg"
+    },
+    {
+      "frame_index": 692,
+      "timestamp_seconds": 28.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000692.jpg"
+    },
+    {
+      "frame_index": 696,
+      "timestamp_seconds": 29.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000696.jpg"
+    },
+    {
+      "frame_index": 700,
+      "timestamp_seconds": 29.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000700.jpg"
+    },
+    {
+      "frame_index": 704,
+      "timestamp_seconds": 29.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000704.jpg"
+    },
+    {
+      "frame_index": 708,
+      "timestamp_seconds": 29.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000708.jpg"
+    },
+    {
+      "frame_index": 712,
+      "timestamp_seconds": 29.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000712.jpg"
+    },
+    {
+      "frame_index": 716,
+      "timestamp_seconds": 29.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000716.jpg"
+    },
+    {
+      "frame_index": 720,
+      "timestamp_seconds": 30.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000720.jpg"
+    },
+    {
+      "frame_index": 724,
+      "timestamp_seconds": 30.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000724.jpg"
+    },
+    {
+      "frame_index": 728,
+      "timestamp_seconds": 30.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000728.jpg"
+    },
+    {
+      "frame_index": 732,
+      "timestamp_seconds": 30.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000732.jpg"
+    },
+    {
+      "frame_index": 736,
+      "timestamp_seconds": 30.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000736.jpg"
+    },
+    {
+      "frame_index": 740,
+      "timestamp_seconds": 30.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000740.jpg"
+    },
+    {
+      "frame_index": 744,
+      "timestamp_seconds": 31.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000744.jpg"
+    },
+    {
+      "frame_index": 748,
+      "timestamp_seconds": 31.166666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000748.jpg"
+    },
+    {
+      "frame_index": 752,
+      "timestamp_seconds": 31.333333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000752.jpg"
+    },
+    {
+      "frame_index": 756,
+      "timestamp_seconds": 31.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000756.jpg"
+    },
+    {
+      "frame_index": 760,
+      "timestamp_seconds": 31.666666666666668,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000760.jpg"
+    },
+    {
+      "frame_index": 764,
+      "timestamp_seconds": 31.833333333333332,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000764.jpg"
+    },
+    {
+      "frame_index": 768,
+      "timestamp_seconds": 32.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000768.jpg"
+    },
+    {
+      "frame_index": 772,
+      "timestamp_seconds": 32.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000772.jpg"
+    },
+    {
+      "frame_index": 776,
+      "timestamp_seconds": 32.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000776.jpg"
+    },
+    {
+      "frame_index": 780,
+      "timestamp_seconds": 32.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000780.jpg"
+    },
+    {
+      "frame_index": 784,
+      "timestamp_seconds": 32.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000784.jpg"
+    },
+    {
+      "frame_index": 788,
+      "timestamp_seconds": 32.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000788.jpg"
+    },
+    {
+      "frame_index": 792,
+      "timestamp_seconds": 33.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000792.jpg"
+    },
+    {
+      "frame_index": 796,
+      "timestamp_seconds": 33.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000796.jpg"
+    },
+    {
+      "frame_index": 800,
+      "timestamp_seconds": 33.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000800.jpg"
+    },
+    {
+      "frame_index": 804,
+      "timestamp_seconds": 33.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000804.jpg"
+    },
+    {
+      "frame_index": 808,
+      "timestamp_seconds": 33.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000808.jpg"
+    },
+    {
+      "frame_index": 812,
+      "timestamp_seconds": 33.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000812.jpg"
+    },
+    {
+      "frame_index": 816,
+      "timestamp_seconds": 34.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000816.jpg"
+    },
+    {
+      "frame_index": 820,
+      "timestamp_seconds": 34.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000820.jpg"
+    },
+    {
+      "frame_index": 824,
+      "timestamp_seconds": 34.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000824.jpg"
+    },
+    {
+      "frame_index": 828,
+      "timestamp_seconds": 34.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000828.jpg"
+    },
+    {
+      "frame_index": 832,
+      "timestamp_seconds": 34.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000832.jpg"
+    },
+    {
+      "frame_index": 836,
+      "timestamp_seconds": 34.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000836.jpg"
+    },
+    {
+      "frame_index": 840,
+      "timestamp_seconds": 35.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000840.jpg"
+    },
+    {
+      "frame_index": 844,
+      "timestamp_seconds": 35.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000844.jpg"
+    },
+    {
+      "frame_index": 848,
+      "timestamp_seconds": 35.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000848.jpg"
+    },
+    {
+      "frame_index": 852,
+      "timestamp_seconds": 35.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000852.jpg"
+    },
+    {
+      "frame_index": 856,
+      "timestamp_seconds": 35.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000856.jpg"
+    },
+    {
+      "frame_index": 860,
+      "timestamp_seconds": 35.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000860.jpg"
+    },
+    {
+      "frame_index": 864,
+      "timestamp_seconds": 36.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000864.jpg"
+    },
+    {
+      "frame_index": 868,
+      "timestamp_seconds": 36.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000868.jpg"
+    },
+    {
+      "frame_index": 872,
+      "timestamp_seconds": 36.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000872.jpg"
+    },
+    {
+      "frame_index": 876,
+      "timestamp_seconds": 36.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000876.jpg"
+    },
+    {
+      "frame_index": 880,
+      "timestamp_seconds": 36.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000880.jpg"
+    },
+    {
+      "frame_index": 884,
+      "timestamp_seconds": 36.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000884.jpg"
+    },
+    {
+      "frame_index": 888,
+      "timestamp_seconds": 37.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000888.jpg"
+    },
+    {
+      "frame_index": 892,
+      "timestamp_seconds": 37.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000892.jpg"
+    },
+    {
+      "frame_index": 896,
+      "timestamp_seconds": 37.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000896.jpg"
+    },
+    {
+      "frame_index": 900,
+      "timestamp_seconds": 37.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000900.jpg"
+    },
+    {
+      "frame_index": 904,
+      "timestamp_seconds": 37.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000904.jpg"
+    },
+    {
+      "frame_index": 908,
+      "timestamp_seconds": 37.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000908.jpg"
+    },
+    {
+      "frame_index": 912,
+      "timestamp_seconds": 38.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000912.jpg"
+    },
+    {
+      "frame_index": 916,
+      "timestamp_seconds": 38.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000916.jpg"
+    },
+    {
+      "frame_index": 920,
+      "timestamp_seconds": 38.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000920.jpg"
+    },
+    {
+      "frame_index": 924,
+      "timestamp_seconds": 38.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000924.jpg"
+    },
+    {
+      "frame_index": 928,
+      "timestamp_seconds": 38.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000928.jpg"
+    },
+    {
+      "frame_index": 932,
+      "timestamp_seconds": 38.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000932.jpg"
+    },
+    {
+      "frame_index": 936,
+      "timestamp_seconds": 39.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000936.jpg"
+    },
+    {
+      "frame_index": 940,
+      "timestamp_seconds": 39.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000940.jpg"
+    },
+    {
+      "frame_index": 944,
+      "timestamp_seconds": 39.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000944.jpg"
+    },
+    {
+      "frame_index": 948,
+      "timestamp_seconds": 39.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000948.jpg"
+    },
+    {
+      "frame_index": 952,
+      "timestamp_seconds": 39.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000952.jpg"
+    },
+    {
+      "frame_index": 956,
+      "timestamp_seconds": 39.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000956.jpg"
+    },
+    {
+      "frame_index": 960,
+      "timestamp_seconds": 40.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000960.jpg"
+    },
+    {
+      "frame_index": 964,
+      "timestamp_seconds": 40.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000964.jpg"
+    },
+    {
+      "frame_index": 968,
+      "timestamp_seconds": 40.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000968.jpg"
+    },
+    {
+      "frame_index": 972,
+      "timestamp_seconds": 40.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000972.jpg"
+    },
+    {
+      "frame_index": 976,
+      "timestamp_seconds": 40.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000976.jpg"
+    },
+    {
+      "frame_index": 980,
+      "timestamp_seconds": 40.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000980.jpg"
+    },
+    {
+      "frame_index": 984,
+      "timestamp_seconds": 41.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000984.jpg"
+    },
+    {
+      "frame_index": 988,
+      "timestamp_seconds": 41.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000988.jpg"
+    },
+    {
+      "frame_index": 992,
+      "timestamp_seconds": 41.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000992.jpg"
+    },
+    {
+      "frame_index": 996,
+      "timestamp_seconds": 41.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_000996.jpg"
+    },
+    {
+      "frame_index": 1000,
+      "timestamp_seconds": 41.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001000.jpg"
+    },
+    {
+      "frame_index": 1004,
+      "timestamp_seconds": 41.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001004.jpg"
+    },
+    {
+      "frame_index": 1008,
+      "timestamp_seconds": 42.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001008.jpg"
+    },
+    {
+      "frame_index": 1012,
+      "timestamp_seconds": 42.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001012.jpg"
+    },
+    {
+      "frame_index": 1016,
+      "timestamp_seconds": 42.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001016.jpg"
+    },
+    {
+      "frame_index": 1020,
+      "timestamp_seconds": 42.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001020.jpg"
+    },
+    {
+      "frame_index": 1024,
+      "timestamp_seconds": 42.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001024.jpg"
+    },
+    {
+      "frame_index": 1028,
+      "timestamp_seconds": 42.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001028.jpg"
+    },
+    {
+      "frame_index": 1032,
+      "timestamp_seconds": 43.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001032.jpg"
+    },
+    {
+      "frame_index": 1036,
+      "timestamp_seconds": 43.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001036.jpg"
+    },
+    {
+      "frame_index": 1040,
+      "timestamp_seconds": 43.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001040.jpg"
+    },
+    {
+      "frame_index": 1044,
+      "timestamp_seconds": 43.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001044.jpg"
+    },
+    {
+      "frame_index": 1048,
+      "timestamp_seconds": 43.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001048.jpg"
+    },
+    {
+      "frame_index": 1052,
+      "timestamp_seconds": 43.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001052.jpg"
+    },
+    {
+      "frame_index": 1056,
+      "timestamp_seconds": 44.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001056.jpg"
+    },
+    {
+      "frame_index": 1060,
+      "timestamp_seconds": 44.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001060.jpg"
+    },
+    {
+      "frame_index": 1064,
+      "timestamp_seconds": 44.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001064.jpg"
+    },
+    {
+      "frame_index": 1068,
+      "timestamp_seconds": 44.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001068.jpg"
+    },
+    {
+      "frame_index": 1072,
+      "timestamp_seconds": 44.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001072.jpg"
+    },
+    {
+      "frame_index": 1076,
+      "timestamp_seconds": 44.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001076.jpg"
+    },
+    {
+      "frame_index": 1080,
+      "timestamp_seconds": 45.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001080.jpg"
+    },
+    {
+      "frame_index": 1084,
+      "timestamp_seconds": 45.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001084.jpg"
+    },
+    {
+      "frame_index": 1088,
+      "timestamp_seconds": 45.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001088.jpg"
+    },
+    {
+      "frame_index": 1092,
+      "timestamp_seconds": 45.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001092.jpg"
+    },
+    {
+      "frame_index": 1096,
+      "timestamp_seconds": 45.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001096.jpg"
+    },
+    {
+      "frame_index": 1100,
+      "timestamp_seconds": 45.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001100.jpg"
+    },
+    {
+      "frame_index": 1104,
+      "timestamp_seconds": 46.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001104.jpg"
+    },
+    {
+      "frame_index": 1108,
+      "timestamp_seconds": 46.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001108.jpg"
+    },
+    {
+      "frame_index": 1112,
+      "timestamp_seconds": 46.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001112.jpg"
+    },
+    {
+      "frame_index": 1116,
+      "timestamp_seconds": 46.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001116.jpg"
+    },
+    {
+      "frame_index": 1120,
+      "timestamp_seconds": 46.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001120.jpg"
+    },
+    {
+      "frame_index": 1124,
+      "timestamp_seconds": 46.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001124.jpg"
+    },
+    {
+      "frame_index": 1128,
+      "timestamp_seconds": 47.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001128.jpg"
+    },
+    {
+      "frame_index": 1132,
+      "timestamp_seconds": 47.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001132.jpg"
+    },
+    {
+      "frame_index": 1136,
+      "timestamp_seconds": 47.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001136.jpg"
+    },
+    {
+      "frame_index": 1140,
+      "timestamp_seconds": 47.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001140.jpg"
+    },
+    {
+      "frame_index": 1144,
+      "timestamp_seconds": 47.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001144.jpg"
+    },
+    {
+      "frame_index": 1148,
+      "timestamp_seconds": 47.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001148.jpg"
+    },
+    {
+      "frame_index": 1152,
+      "timestamp_seconds": 48.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001152.jpg"
+    },
+    {
+      "frame_index": 1156,
+      "timestamp_seconds": 48.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001156.jpg"
+    },
+    {
+      "frame_index": 1160,
+      "timestamp_seconds": 48.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001160.jpg"
+    },
+    {
+      "frame_index": 1164,
+      "timestamp_seconds": 48.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001164.jpg"
+    },
+    {
+      "frame_index": 1168,
+      "timestamp_seconds": 48.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001168.jpg"
+    },
+    {
+      "frame_index": 1172,
+      "timestamp_seconds": 48.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001172.jpg"
+    },
+    {
+      "frame_index": 1176,
+      "timestamp_seconds": 49.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001176.jpg"
+    },
+    {
+      "frame_index": 1180,
+      "timestamp_seconds": 49.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001180.jpg"
+    },
+    {
+      "frame_index": 1184,
+      "timestamp_seconds": 49.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001184.jpg"
+    },
+    {
+      "frame_index": 1188,
+      "timestamp_seconds": 49.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001188.jpg"
+    },
+    {
+      "frame_index": 1192,
+      "timestamp_seconds": 49.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001192.jpg"
+    },
+    {
+      "frame_index": 1196,
+      "timestamp_seconds": 49.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001196.jpg"
+    },
+    {
+      "frame_index": 1200,
+      "timestamp_seconds": 50.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001200.jpg"
+    },
+    {
+      "frame_index": 1204,
+      "timestamp_seconds": 50.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001204.jpg"
+    },
+    {
+      "frame_index": 1208,
+      "timestamp_seconds": 50.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001208.jpg"
+    },
+    {
+      "frame_index": 1212,
+      "timestamp_seconds": 50.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001212.jpg"
+    },
+    {
+      "frame_index": 1216,
+      "timestamp_seconds": 50.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001216.jpg"
+    },
+    {
+      "frame_index": 1220,
+      "timestamp_seconds": 50.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001220.jpg"
+    },
+    {
+      "frame_index": 1224,
+      "timestamp_seconds": 51.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001224.jpg"
+    },
+    {
+      "frame_index": 1228,
+      "timestamp_seconds": 51.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001228.jpg"
+    },
+    {
+      "frame_index": 1232,
+      "timestamp_seconds": 51.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001232.jpg"
+    },
+    {
+      "frame_index": 1236,
+      "timestamp_seconds": 51.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001236.jpg"
+    },
+    {
+      "frame_index": 1240,
+      "timestamp_seconds": 51.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001240.jpg"
+    },
+    {
+      "frame_index": 1244,
+      "timestamp_seconds": 51.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001244.jpg"
+    },
+    {
+      "frame_index": 1248,
+      "timestamp_seconds": 52.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001248.jpg"
+    },
+    {
+      "frame_index": 1252,
+      "timestamp_seconds": 52.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001252.jpg"
+    },
+    {
+      "frame_index": 1256,
+      "timestamp_seconds": 52.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001256.jpg"
+    },
+    {
+      "frame_index": 1260,
+      "timestamp_seconds": 52.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001260.jpg"
+    },
+    {
+      "frame_index": 1264,
+      "timestamp_seconds": 52.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001264.jpg"
+    },
+    {
+      "frame_index": 1268,
+      "timestamp_seconds": 52.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001268.jpg"
+    },
+    {
+      "frame_index": 1272,
+      "timestamp_seconds": 53.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001272.jpg"
+    },
+    {
+      "frame_index": 1276,
+      "timestamp_seconds": 53.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001276.jpg"
+    },
+    {
+      "frame_index": 1280,
+      "timestamp_seconds": 53.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001280.jpg"
+    },
+    {
+      "frame_index": 1284,
+      "timestamp_seconds": 53.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001284.jpg"
+    },
+    {
+      "frame_index": 1288,
+      "timestamp_seconds": 53.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001288.jpg"
+    },
+    {
+      "frame_index": 1292,
+      "timestamp_seconds": 53.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001292.jpg"
+    },
+    {
+      "frame_index": 1296,
+      "timestamp_seconds": 54.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001296.jpg"
+    },
+    {
+      "frame_index": 1300,
+      "timestamp_seconds": 54.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001300.jpg"
+    },
+    {
+      "frame_index": 1304,
+      "timestamp_seconds": 54.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001304.jpg"
+    },
+    {
+      "frame_index": 1308,
+      "timestamp_seconds": 54.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001308.jpg"
+    },
+    {
+      "frame_index": 1312,
+      "timestamp_seconds": 54.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001312.jpg"
+    },
+    {
+      "frame_index": 1316,
+      "timestamp_seconds": 54.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001316.jpg"
+    },
+    {
+      "frame_index": 1320,
+      "timestamp_seconds": 55.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001320.jpg"
+    },
+    {
+      "frame_index": 1324,
+      "timestamp_seconds": 55.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001324.jpg"
+    },
+    {
+      "frame_index": 1328,
+      "timestamp_seconds": 55.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001328.jpg"
+    },
+    {
+      "frame_index": 1332,
+      "timestamp_seconds": 55.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001332.jpg"
+    },
+    {
+      "frame_index": 1336,
+      "timestamp_seconds": 55.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001336.jpg"
+    },
+    {
+      "frame_index": 1340,
+      "timestamp_seconds": 55.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001340.jpg"
+    },
+    {
+      "frame_index": 1344,
+      "timestamp_seconds": 56.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001344.jpg"
+    },
+    {
+      "frame_index": 1348,
+      "timestamp_seconds": 56.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001348.jpg"
+    },
+    {
+      "frame_index": 1352,
+      "timestamp_seconds": 56.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001352.jpg"
+    },
+    {
+      "frame_index": 1356,
+      "timestamp_seconds": 56.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001356.jpg"
+    },
+    {
+      "frame_index": 1360,
+      "timestamp_seconds": 56.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001360.jpg"
+    },
+    {
+      "frame_index": 1364,
+      "timestamp_seconds": 56.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001364.jpg"
+    },
+    {
+      "frame_index": 1368,
+      "timestamp_seconds": 57.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001368.jpg"
+    },
+    {
+      "frame_index": 1372,
+      "timestamp_seconds": 57.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001372.jpg"
+    },
+    {
+      "frame_index": 1376,
+      "timestamp_seconds": 57.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001376.jpg"
+    },
+    {
+      "frame_index": 1380,
+      "timestamp_seconds": 57.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001380.jpg"
+    },
+    {
+      "frame_index": 1384,
+      "timestamp_seconds": 57.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001384.jpg"
+    },
+    {
+      "frame_index": 1388,
+      "timestamp_seconds": 57.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001388.jpg"
+    },
+    {
+      "frame_index": 1392,
+      "timestamp_seconds": 58.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001392.jpg"
+    },
+    {
+      "frame_index": 1396,
+      "timestamp_seconds": 58.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001396.jpg"
+    },
+    {
+      "frame_index": 1400,
+      "timestamp_seconds": 58.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001400.jpg"
+    },
+    {
+      "frame_index": 1404,
+      "timestamp_seconds": 58.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001404.jpg"
+    },
+    {
+      "frame_index": 1408,
+      "timestamp_seconds": 58.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001408.jpg"
+    },
+    {
+      "frame_index": 1412,
+      "timestamp_seconds": 58.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001412.jpg"
+    },
+    {
+      "frame_index": 1416,
+      "timestamp_seconds": 59.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001416.jpg"
+    },
+    {
+      "frame_index": 1420,
+      "timestamp_seconds": 59.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001420.jpg"
+    },
+    {
+      "frame_index": 1424,
+      "timestamp_seconds": 59.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001424.jpg"
+    },
+    {
+      "frame_index": 1428,
+      "timestamp_seconds": 59.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001428.jpg"
+    },
+    {
+      "frame_index": 1432,
+      "timestamp_seconds": 59.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001432.jpg"
+    },
+    {
+      "frame_index": 1436,
+      "timestamp_seconds": 59.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001436.jpg"
+    },
+    {
+      "frame_index": 1440,
+      "timestamp_seconds": 60.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001440.jpg"
+    },
+    {
+      "frame_index": 1444,
+      "timestamp_seconds": 60.166666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001444.jpg"
+    },
+    {
+      "frame_index": 1448,
+      "timestamp_seconds": 60.333333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001448.jpg"
+    },
+    {
+      "frame_index": 1452,
+      "timestamp_seconds": 60.5,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001452.jpg"
+    },
+    {
+      "frame_index": 1456,
+      "timestamp_seconds": 60.666666666666664,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001456.jpg"
+    },
+    {
+      "frame_index": 1460,
+      "timestamp_seconds": 60.833333333333336,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001460.jpg"
+    },
+    {
+      "frame_index": 1464,
+      "timestamp_seconds": 61.0,
+      "image_path": "scratch\\test_fake\\demo_ai_medium_confidence_6415fb09\\frames\\demo_ai_medium_confidence_frame_001464.jpg"
+    }
+  ]
+}

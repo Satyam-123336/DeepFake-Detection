@@ -1,6 +1,10 @@
 [
   "tests/test_artifact_features.py::test_artifact_features_extracts_basic_statistics",
   "tests/test_blink_detector.py::test_blink_detector_counts_one_blink",
+  "tests/test_bug_fix_verifications.py::test_lighting_asymmetry_handles_small_image_without_nan",
+  "tests/test_bug_fix_verifications.py::test_transcribe_handles_invalid_audio_path",
+  "tests/test_bug_fix_verifications.py::test_visual_suspicion_returns_zero_when_no_face_detected",
+  "tests/test_bug_fix_verifications.py::test_watermark_metadata_does_not_flag_dfdc_real_filename",
   "tests/test_cnn_dataset.py::test_cnn_dataset_loads_face_records",
   "tests/test_dataset_ingestion.py::test_ingest_dfdc_reads_metadata_labels",
   "tests/test_dataset_ingestion.py::test_ingest_labeled_directory_copies_videos",

@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
@@ -71,7 +71,12 @@ def _transcribe_with_whisper(audio_path: Path) -> TranscriptResult | None:
 
 
 def _transcribe_with_energy_proxy(audio_path: Path) -> TranscriptResult:
-    waveform, sr = librosa.load(str(audio_path), sr=16000, mono=True)
+    try:
+        waveform, sr = librosa.load(str(audio_path), sr=16000, mono=True)
+    except Exception:
+        waveform = np.array([])
+        sr = 16000
+
     if waveform.size == 0:
         return TranscriptResult(
             transcript_text="",

@@ -240,7 +240,7 @@ async def analyze_video(file: UploadFile = File(...), background_tasks: Backgrou
     )
 
 
-async def _run_analysis(job_id: str, video_path: Path) -> None:
+def _run_analysis(job_id: str, video_path: Path) -> None:
     """Background task to run analysis."""
     try:
         update_job(job_id, status="processing", progress=20)
@@ -350,9 +350,15 @@ async def websocket_job_progress(websocket: WebSocket, job_id: str) -> None:
             await asyncio.sleep(0.5)
 
     except Exception as e:
-        await websocket.send_json({"error": str(e)})
+        try:
+            await websocket.send_json({"error": str(e)})
+        except Exception:
+            pass
     finally:
-        await websocket.close()
+        try:
+            await websocket.close()
+        except Exception:
+            pass
 
 
 # ============================================================================

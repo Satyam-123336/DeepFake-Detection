@@ -16,11 +16,13 @@ def _load_video_file_clip():
 def extract_audio(video_path: Path, output_dir: Path) -> Path | None:
     ensure_dir(output_dir)
     output_path = output_dir / f"{video_path.stem}.wav"
-    video_file_clip = _load_video_file_clip()
 
-    with video_file_clip(str(video_path)) as clip:
-        if clip.audio is None:
-            return None
-        clip.audio.write_audiofile(str(output_path), fps=16000, logger=None)
-
-    return output_path
+    try:
+        video_file_clip = _load_video_file_clip()
+        with video_file_clip(str(video_path)) as clip:
+            if clip.audio is None:
+                return None
+            clip.audio.write_audiofile(str(output_path), fps=16000, logger=None)
+        return output_path
+    except Exception:
+        return None

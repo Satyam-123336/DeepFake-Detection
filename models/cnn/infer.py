@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import functools
 import json
 from pathlib import Path
 
@@ -31,6 +32,7 @@ def load_fake_threshold(weights_path: Path) -> float:
     return max(0.0, min(1.0, threshold_value))
 
 
+@functools.lru_cache(maxsize=4)
 def load_model(weights_path: Path) -> LightweightArtifactCNN:
     model = LightweightArtifactCNN()
     state_dict = torch.load(weights_path, map_location="cpu")

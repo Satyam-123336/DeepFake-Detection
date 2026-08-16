@@ -26,7 +26,7 @@ def _metadata_score(video_path: Path) -> tuple[list[str], float]:
         "face2face",
         "faceswap",
         "neuraltextures",
-        "dfdc",
+        "dfdc_fake",
         "synth",
         "generated",
         "fake",

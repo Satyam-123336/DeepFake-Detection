@@ -47,13 +47,18 @@ def _visual_suspicion(
     sharpness_score: float | None,
     texture_score: float | None,
 ) -> float:
+    # If no face features are present, there is no visual manipulation evidence to score.
+    if cnn_confidence is None and lighting_asymmetry is None and sharpness_score is None and texture_score is None:
+        return 0.0
+
     cnn = _clamp01(cnn_confidence) if cnn_confidence is not None else 0.0
 
     # Handcrafted artifact heuristics aligned to the methodology:
     # low sharpness => oversmoothed skin, high lighting asymmetry => inconsistent illumination.
     light = _clamp01((lighting_asymmetry or 0.0) / 80.0)
-    oversmooth = _clamp01((400.0 - (sharpness_score or 0.0)) / 400.0)
-    low_texture = _clamp01((55.0 - (texture_score or 55.0)) / 20.0)
+    sharpness_val = sharpness_score if sharpness_score is not None else 400.0
+    oversmooth = _clamp01((400.0 - sharpness_val) / 400.0)
+    low_texture = _clamp01((55.0 - (texture_score if texture_score is not None else 55.0)) / 20.0)
     heuristic = _clamp01(0.45 * light + 0.45 * oversmooth + 0.10 * low_texture)
 
     # If the CNN is confident the sample is fake, trust it strongly.
@@ -117,14 +122,20 @@ def compute_final_score(
     )
 
     confidence_floor = 0.0
-    if strong_visual and strong_behavioral:
-        confidence_floor = 0.72
-    elif strong_visual_corroborated:
-        confidence_floor = 0.5
+    
+    if strong_visual and strong_visual_corroborated:
+        confidence_floor = 0.90
+    elif strong_visual and strong_behavioral:
+        confidence_floor = 0.85
+    elif strong_visual:
+        # A pristine visual deepfake without other corroborating flaws still warrants high risk
+        confidence_floor = 0.75
+    elif strong_behavioral:
+        confidence_floor = 0.65
     elif corroborated_visual:
-        confidence_floor = 0.5
+        confidence_floor = 0.60
     elif suspicious_combo:
-        confidence_floor = 0.5
+        confidence_floor = 0.60
 
     confidence = max(confidence, confidence_floor)
 

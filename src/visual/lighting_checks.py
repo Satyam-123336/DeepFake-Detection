@@ -17,7 +17,11 @@ def compute_lighting_asymmetry(face_image_path: Path) -> float:
     right = cv2.flip(right, 1)
 
     min_width = min(left.shape[1], right.shape[1])
+    if min_width == 0:
+        return 0.0
+
     left = left[:, :min_width]
     right = right[:, :min_width]
 
-    return float(np.mean(np.abs(left.astype(np.float32) - right.astype(np.float32))))
+    val = float(np.mean(np.abs(left.astype(np.float32) - right.astype(np.float32))))
+    return 0.0 if np.isnan(val) else val
