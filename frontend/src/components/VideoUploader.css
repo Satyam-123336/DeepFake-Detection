@@ -1,5 +1,5 @@
 /* ============================================================
-   VIDEO UPLOADER — Forensic Scan Interface (Light + Dark)
+   VIDEO UPLOADER - Forensic Scan Interface (Light + Dark)
    ============================================================ */
 
 .uploader-root {
@@ -9,7 +9,7 @@
   align-items: start;
 }
 
-/* ── Left Sidebar — Module Checklist ── */
+/* ── Left Sidebar - Module Checklist ── */
 .module-sidebar {
   display: flex;
   flex-direction: column;
@@ -120,7 +120,7 @@
   font-weight: 600;
 }
 
-/* ── Right Panel — Upload Area ── */
+/* ── Right Panel - Upload Area ── */
 .upload-panel {
   display: flex;
   flex-direction: column;
@@ -443,4 +443,26 @@
   .sidebar-section-label { grid-column: 1/-1; }
   .model-info-card { grid-column: 1/-1; }
   .best-practices-list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .module-sidebar {
+    grid-template-columns: 1fr;
+  }
+  .mode-toggle-row {
+    flex-direction: column;
+  }
+  .action-row {
+    flex-direction: column;
+    width: 100%;
+  }
+  .action-row .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .preview-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
 }

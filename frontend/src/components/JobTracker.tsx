@@ -208,7 +208,7 @@ export default function JobTracker({ jobId, onReset }: JobTrackerProps) {
           <div className="info-card-title">Job Details</div>
           {[
             ["Job ID",   jobId],
-            ["Created",  job.created_at ? new Date(job.created_at).toLocaleTimeString() : "—"],
+            ["Created",  job.created_at ? new Date(job.created_at).toLocaleTimeString() : "-"],
             ["Status",   job.status],
             ["Progress", `${progress}%`],
           ].map(([k, v]) => (
@@ -248,7 +248,7 @@ export default function JobTracker({ jobId, onReset }: JobTrackerProps) {
         <div className="info-card">
           <div className="info-card-title">Field Notes</div>
           <ul className="tips-list">
-            <li>Analysis runs entirely on local hardware — no data leaves your machine</li>
+            <li>Analysis runs entirely on local hardware - no data leaves your machine</li>
             <li>Videos &gt;100 MB may take 2–5 minutes</li>
             <li>Concurrent submissions are supported</li>
             <li>Jobs are retained for 7 days automatically</li>

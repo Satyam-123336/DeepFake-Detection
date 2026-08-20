@@ -320,7 +320,7 @@ export default function SystemStats() {
           💡 Optimization Insights
         </div>
         <ul className="insights-list">
-          <li>Cache efficiency: <strong>{cacheHitRate}%</strong> hit rate — {cacheEffMsg}</li>
+          <li>Cache efficiency: <strong>{cacheHitRate}%</strong> hit rate - {cacheEffMsg}</li>
           <li>Inference trend: <strong>{opt.total_inferences || 0}</strong> total runs, <strong>{opt.cache_hits || 0}</strong> served from cache</li>
           <li>Active load: <strong>{stats?.active_jobs || 0}</strong> job(s) currently in queue</li>
           <li>Same-video re-analysis serves from cache in under 1ms</li>

@@ -21,7 +21,7 @@ def _blink_suspicion(duration_seconds: float, blink_count: int, irregularity: fl
         return 0.0
 
     # No detected blink windows with default irregularity (>= 0.95) means the landmark
-    # detector found no blink events — this is an unavailable signal, not a suspicious one.
+    # detector found no blink events - this is an unavailable signal, not a suspicious one.
     # Return 0.0 so the module score honestly reflects "no data" rather than a false alarm.
     if blink_count == 0 and irregularity >= 0.95:
         return 0.0

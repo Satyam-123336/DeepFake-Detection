@@ -1,5 +1,5 @@
 /* ============================================================
-   REALITYGUARD AI — Global Design System (Light + Dark Mode)
+   REALITYGUARD AI - Global Design System (Light + Dark Mode)
    ============================================================ */
 
 /* ── Dark Mode (default) ── */
@@ -17,13 +17,13 @@
   --border-default: #30363d;
   --border-emphasis:#444c56;
 
-  /* Accent — Teal */
+  /* Accent - Teal */
   --teal:           #00d4aa;
   --teal-dim:       rgba(0,212,170,0.12);
   --teal-mid:       #00b894;
   --teal-glow:      0 0 16px rgba(0,212,170,0.35), 0 0 32px rgba(0,212,170,0.15);
 
-  /* Accent — Purple */
+  /* Accent - Purple */
   --purple:         #7c3aed;
   --purple-dim:     rgba(124,58,237,0.12);
   --purple-light:   #a78bfa;

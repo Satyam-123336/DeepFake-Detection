@@ -145,7 +145,7 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
 
   const verdictMap: Record<string, string> = {
     high:   "Evidence of Manipulation Detected",
-    medium: "Inconclusive — Manual Review Advised",
+    medium: "Inconclusive - Manual Review Advised",
     low:    "No Strong Manipulation Indicators",
   };
 
@@ -243,7 +243,7 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
           if (!escalationApplied) return null;
           return (
             <div style={{ marginTop: 10, padding: "8px 14px", background: "rgba(0,212,170,0.08)", border: "1px solid rgba(0,212,170,0.25)", borderRadius: 8, fontSize: "0.8rem", color: "var(--text-secondary)" }}>
-              ⚡ <strong style={{color:"var(--teal)"}}>Forensic Escalation Applied</strong> — The raw weighted signal sum is <strong>{Math.round(rawWeighted * 100)}%</strong>, but the scoring engine elevated the final confidence to <strong>{confPct}%</strong> because a strong visual CNN signal was detected. This prevents high-confidence deepfakes from being averaged down by missing behavioral signals.
+              ⚡ <strong style={{color:"var(--teal)"}}>Forensic Escalation Applied</strong> - The raw weighted signal sum is <strong>{Math.round(rawWeighted * 100)}%</strong>, but the scoring engine elevated the final confidence to <strong>{confPct}%</strong> because a strong visual CNN signal was detected. This prevents high-confidence deepfakes from being averaged down by missing behavioral signals.
             </div>
           );
         })()}
@@ -451,19 +451,19 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
         {riskLevel.toLowerCase() === "high" && (
           <div className="alert-banner danger" style={{ marginBottom: 12 }}>
             <span>🚨</span>
-            <span><strong>High Manipulation Risk</strong> — Do NOT share this content without independent forensic verification. Consider escalating to platform authorities.</span>
+            <span><strong>High Manipulation Risk</strong> - Do NOT share this content without independent forensic verification. Consider escalating to platform authorities.</span>
           </div>
         )}
         {riskLevel.toLowerCase() === "medium" && (
           <div className="alert-banner warning" style={{ marginBottom: 12 }}>
             <span>⚠️</span>
-            <span><strong>Inconclusive Result</strong> — Cross-validate with additional tools and corroborating physical evidence before making a determination.</span>
+            <span><strong>Inconclusive Result</strong> - Cross-validate with additional tools and corroborating physical evidence before making a determination.</span>
           </div>
         )}
         {riskLevel.toLowerCase() === "low" && (
           <div className="alert-banner success" style={{ marginBottom: 12 }}>
             <span>✅</span>
-            <span><strong>Likely Authentic</strong> — No strong synthetic signals detected. Maintain standard chain-of-custody documentation.</span>
+            <span><strong>Likely Authentic</strong> - No strong synthetic signals detected. Maintain standard chain-of-custody documentation.</span>
           </div>
         )}
         <ul className="recommendation-list">

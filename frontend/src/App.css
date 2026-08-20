@@ -1,5 +1,5 @@
 /* ============================================================
-   APP SHELL — Header, Nav, Layout (Light + Dark)
+   APP SHELL - Header, Nav, Layout (Light + Dark)
    ============================================================ */
 
 .app-wrapper {
@@ -241,14 +241,42 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
-  .logo-tagline { display: none; }
-  .header-inner { gap: 12px; }
-  .nav-tab { padding: 7px 10px; font-size: 0.8rem; }
+@media (max-width: 900px) {
+  .header-inner {
+    padding: 0 16px;
+    gap: 12px;
+  }
   .app-main { padding: 20px 16px; }
 }
 
+@media (max-width: 768px) {
+  .logo-tagline { display: none; }
+  .header-inner { gap: 8px; }
+  .nav-tab { padding: 7px 10px; font-size: 0.8rem; }
+  /* Allow the nav menu to scroll horizontally if it overflows */
+  .nav-menu {
+    overflow-x: auto;
+    padding-bottom: 2px;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .nav-menu::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
+@media (max-width: 600px) {
+  .logo-name { font-size: 0.95rem; }
+  .status-badge span:last-child { display: none; } /* Hide 'ENGINE ONLINE' text, keep dot */
+  .nav-tab span { display: none; } /* Hide tab text, keep emoji icon */
+  .nav-tab { font-size: 1.1rem; padding: 6px 12px; }
+  .header-right { gap: 6px; }
+  .theme-toggle { width: 32px; height: 32px; }
+}
+
 @media (max-width: 480px) {
-  .logo-name { font-size: 0.9rem; }
-  .status-badge span:last-child { display: none; }
+  .logo-icon { width: 28px; height: 28px; font-size: 1rem; }
+  .logo-name { font-size: 0.85rem; }
+  .header-inner { padding: 0 12px; }
+  .app-main { padding: 16px 12px; }
 }
