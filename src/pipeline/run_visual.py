@@ -18,8 +18,15 @@ class VisualResult:
     cnn_result: CNNInferenceResult | None
 
 
-def run_visual_analysis(frame_path: Path, faces_dir: Path, weights_path: Path | None = None) -> VisualResult:
-    detector = FaceDetector()
+def run_visual_analysis(
+    frame_path: Path,
+    faces_dir: Path,
+    weights_path: Path | None = None,
+    detector: FaceDetector | None = None,
+) -> VisualResult:
+    # Re-use a shared detector when provided to avoid loading MTCNN weights on each call.
+    if detector is None:
+        detector = FaceDetector()
     face_box = detector.detect(frame_path)
     if face_box is None:
         return VisualResult(None, None, None, None)

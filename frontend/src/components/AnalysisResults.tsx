@@ -105,7 +105,11 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
 
   const blinkUnavailable = (analysis.behavioral?.blink_count ?? 0) === 0
     && (analysis.behavioral?.blink_irregularity ?? 1) >= 0.95;
-  const lipsyncUnavailable = (analysis.behavioral?.lipsync_error ?? 1) >= 0.99;
+  // BUG 4 FIX: lipsync_error is the mean-absolute-error of signal correlation,
+  // NOT an availability flag. A well-synced video can legitimately have error >= 0.99.
+  // Use the same sentinel values the backend uses: correlation=0 AND offset=0 means unavailable.
+  const lipsyncUnavailable = (analysis.behavioral?.lipsync_correlation ?? 0) <= 0.01
+    && Math.abs(analysis.behavioral?.lipsync_offset_seconds ?? 0) < 1e-6;
   const transcriptUnavailable = (analysis.transcript?.method || "").toLowerCase() === "unavailable";
 
   const evidenceSignals: Record<string, boolean> = {

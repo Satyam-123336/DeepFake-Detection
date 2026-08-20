@@ -20,6 +20,7 @@ def _clamp01(value: float) -> float:
 
 
 def _metadata_score(video_path: Path) -> tuple[list[str], float]:
+    import re
     name = video_path.name.lower()
     signatures = [
         "deepfake",
@@ -31,11 +32,14 @@ def _metadata_score(video_path: Path) -> tuple[list[str], float]:
         "generated",
         "fake",
     ]
-    matched = [token for token in signatures if token in name]
+    # BUG 6 FIX: Use word-boundary regex so 'fake' doesn't false-match filenames
+    # like 'snowflake.mp4' or 'fireplace.mp4'.
+    matched = [token for token in signatures if re.search(rf"\b{re.escape(token)}\b", name)]
     if not matched:
         return [], 0.0
     # Multiple signature hits increase confidence, capped at 1.
     return matched, _clamp01(0.35 + 0.2 * len(matched))
+
 
 
 def _overlay_pattern_score(frame_paths: list[Path], max_frames: int = 8) -> float:

@@ -42,7 +42,12 @@ def load_model(weights_path: Path) -> LightweightArtifactCNN:
 
 
 def predict_face_image(face_image_path: Path, weights_path: Path) -> tuple[int, float, float]:
+    # BUG 5 FIX: Resolve the path to a canonical form before it enters lru_cache.
+    # Without this, Path("models/./weights.pt") and Path("models/weights.pt") create
+    # two separate cache entries and load the model twice.
+    weights_path = Path(weights_path).resolve()
     model = load_model(weights_path)
+
     fake_threshold = load_fake_threshold(weights_path)
     image = cv2.imread(str(face_image_path))
     if image is None:

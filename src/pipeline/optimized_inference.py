@@ -9,6 +9,10 @@ from typing import Any
 from src.pipeline.run_full_pipeline import run_phase_four_pipeline
 from src.utils.cache_manager import cached, PersistentCache
 
+# BUG 7 FIX: Increment this whenever the pipeline logic changes to bust stale
+# cached results stored on disk (24h TTL cache bypassed otherwise).
+PIPELINE_VERSION = "2"
+
 
 class OptimizedInferencePipeline:
     """Wraps the full pipeline with intelligent caching and optimization."""
@@ -47,7 +51,9 @@ class OptimizedInferencePipeline:
 
         # Generate cache key based on video content
         video_hash = self._video_hash(video_path)
-        cache_key = f"inference_{video_hash}"
+        # BUG 7 FIX: Include pipeline version in cache key so cached results from
+        # older code are automatically invalidated after logic changes.
+        cache_key = f"inference_{video_hash}_v{PIPELINE_VERSION}"
 
         # Check persistent cache first
         if not force_refresh:

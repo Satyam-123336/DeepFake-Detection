@@ -203,7 +203,7 @@ async def get_job_status(job_id: str) -> JSONResponse:
 
 
 @app.post("/api/analyze")
-async def analyze_video(file: UploadFile = File(...), background_tasks: BackgroundTasks = None) -> JSONResponse:
+async def analyze_video(file: UploadFile = File(...), background_tasks: BackgroundTasks = BackgroundTasks()) -> JSONResponse:
     """
     Upload and analyze video.
 
@@ -216,8 +216,10 @@ async def analyze_video(file: UploadFile = File(...), background_tasks: Backgrou
     job_id = create_job(file.filename)
     update_job(job_id, status="receiving", progress=10)
 
-    # Save uploaded file
-    file_path = UPLOAD_DIR / file.filename
+    # BUG 3 FIX: Prefix with job_id to prevent silent filename collision when two
+    # users upload identically named files at the same time.
+    safe_filename = f"{job_id}_{file.filename}"
+    file_path = UPLOAD_DIR / safe_filename
     try:
         with open(file_path, "wb") as f:
             contents = await file.read()
@@ -226,9 +228,8 @@ async def analyze_video(file: UploadFile = File(...), background_tasks: Backgrou
         update_job(job_id, status="failed", error=str(e))
         raise HTTPException(status_code=500, detail=f"Failed to save file: {str(e)}")
 
-    # Queue analysis in background
-    if background_tasks:
-        background_tasks.add_task(_run_analysis, job_id, file_path)
+    # BUG 2 FIX: background_tasks is always injected by FastAPI, never None.
+    background_tasks.add_task(_run_analysis, job_id, file_path)
 
     return JSONResponse(
         {

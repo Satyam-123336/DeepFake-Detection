@@ -9,6 +9,7 @@ from src.nlp.transcription import TranscriptResult, transcribe_audio_proxy
 from src.pipeline.run_behavioral import BehavioralResult, run_behavioral_analysis
 from src.pipeline.run_preprocessing import PreprocessingResult, run_preprocessing
 from src.pipeline.run_visual import VisualResult, run_visual_analysis
+from src.preprocessing.face_detector import FaceDetector
 from src.scoring.engine import FinalScoreResult, compute_final_score
 from src.utils.io import ensure_dir
 
@@ -106,11 +107,13 @@ def run_phase_four_pipeline(video_path: Path, processed_dir: Path) -> PhaseFourP
     weights_path = _resolve_weights_path()
     visual_result = VisualResult(None, None, None, None)
     visual_candidates: list[VisualResult] = []
+    shared_detector = FaceDetector()  # BUG 1 FIX: create once, not once per frame
     for frame_path in frame_paths[:12]:
         candidate = run_visual_analysis(
             frame_path,
             preprocessing_result.artifact_dir / "faces",
             weights_path,
+            detector=shared_detector,
         )
         if candidate.face_path is not None:
             visual_candidates.append(candidate)
