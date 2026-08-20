@@ -17,12 +17,14 @@ def _clamp01(value: float) -> float:
 
 def _blink_suspicion(duration_seconds: float, blink_count: int, irregularity: float) -> float:
     if duration_seconds <= 0:
-        return 0.25
+        # No video duration means we cannot evaluate blink patterns at all.
+        return 0.0
 
-    # No detected blink windows with default irregularity usually means insufficient signal,
-    # not necessarily suspicious behavior.
+    # No detected blink windows with default irregularity (>= 0.95) means the landmark
+    # detector found no blink events — this is an unavailable signal, not a suspicious one.
+    # Return 0.0 so the module score honestly reflects "no data" rather than a false alarm.
     if blink_count == 0 and irregularity >= 0.95:
-        return 0.25
+        return 0.0
 
     rate_per_min = blink_count / (duration_seconds / 60.0)
     too_low = _clamp01((6.0 - rate_per_min) / 6.0) if rate_per_min < 6.0 else 0.0
@@ -32,9 +34,11 @@ def _blink_suspicion(duration_seconds: float, blink_count: int, irregularity: fl
 
 
 def _lipsync_suspicion(offset_seconds: float, correlation: float) -> float:
-    # This pattern is emitted by behavioral stage when lip-sync could not be estimated reliably.
+    # This pattern (correlation=0, offset=0) is emitted by the behavioral stage when
+    # lip-sync could not be estimated (e.g. no audio). Return 0.0 to reflect unavailable
+    # signal, not suspicion. This prevents false positive scores in the UI.
     if correlation <= 0.01 and abs(offset_seconds) < 1e-6:
-        return 0.2
+        return 0.0
 
     corr_term = _clamp01(1.0 - correlation)
     delay_term = _clamp01(abs(offset_seconds) / 0.2)

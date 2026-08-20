@@ -137,6 +137,11 @@
 .module-score-card:hover {
   border-color: var(--border-emphasis);
 }
+.module-unavailable {
+  opacity: 0.55;
+  border-color: var(--border-subtle) !important;
+  filter: grayscale(0.6);
+}
 
 /* ── Donut Rings ── */
 .module-donut-wrap {

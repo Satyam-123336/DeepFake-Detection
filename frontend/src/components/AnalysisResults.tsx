@@ -47,10 +47,11 @@ const CHART_NAMES: Record<string, string> = {
 };
 
 // SVG Donut ring component
-function DonutRing({ score, color }: { score: number; color: string }) {
+function DonutRing({ score, color, unavailable }: { score: number; color: string; unavailable?: boolean }) {
   const r = 28;
   const circ = 2 * Math.PI * r;
-  const offset = circ - (score / 100) * circ;
+  const displayScore = unavailable ? 0 : score;
+  const offset = circ - (displayScore / 100) * circ;
   return (
     <div className="module-donut-wrap">
       <svg width="72" height="72" viewBox="0 0 72 72">
@@ -60,12 +61,15 @@ function DonutRing({ score, color }: { score: number; color: string }) {
           cx="36" cy="36" r={r}
           strokeWidth="6"
           fill="none"
-          stroke={color}
+          stroke={unavailable ? "#484f58" : color}
           strokeDasharray={circ}
           strokeDashoffset={offset}
+          opacity={unavailable ? 0.3 : 1}
         />
       </svg>
-      <div className="module-donut-label" style={{ color }}>{score}%</div>
+      <div className="module-donut-label" style={{ color: unavailable ? "#484f58" : color }}>
+        {unavailable ? "N/A" : `${score}%`}
+      </div>
     </div>
   );
 }
@@ -217,15 +221,28 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
             const meta = MODULE_META[key] || { label: key, icon: "⚙️", weight: 0 };
             const score = toPercent(val);
             const color = DONUT_COLORS[key] || "#00d4aa";
+            const isUnavailable = (key === "blink" && blinkUnavailable) || (key === "lipsync" && lipsyncUnavailable);
             return (
-              <div key={key} className="module-score-card">
-                <DonutRing score={score} color={color} />
+              <div key={key} className={`module-score-card${isUnavailable ? " module-unavailable" : ""}`}>
+                <DonutRing score={score} color={color} unavailable={isUnavailable} />
                 <div className="module-score-name">{meta.icon} {meta.label}</div>
-                <div className="module-score-weight">weight {(meta.weight * 100).toFixed(0)}%</div>
+                <div className="module-score-weight">{isUnavailable ? <span style={{color:"#484f58", fontSize:"0.75rem"}}>signal unavailable</span> : `weight ${(meta.weight * 100).toFixed(0)}%`}</div>
               </div>
             );
           })}
         </div>
+
+        {/* Confidence Escalation Notice */}
+        {(() => {
+          const rawWeighted = Object.entries(moduleScores).reduce((sum, [k, v]) => sum + v * (MODULE_META[k]?.weight ?? 0), 0);
+          const escalationApplied = confidence - rawWeighted > 0.10;
+          if (!escalationApplied) return null;
+          return (
+            <div style={{ marginTop: 10, padding: "8px 14px", background: "rgba(0,212,170,0.08)", border: "1px solid rgba(0,212,170,0.25)", borderRadius: 8, fontSize: "0.8rem", color: "var(--text-secondary)" }}>
+              ⚡ <strong style={{color:"var(--teal)"}}>Forensic Escalation Applied</strong> — The raw weighted signal sum is <strong>{Math.round(rawWeighted * 100)}%</strong>, but the scoring engine elevated the final confidence to <strong>{confPct}%</strong> because a strong visual CNN signal was detected. This prevents high-confidence deepfakes from being averaged down by missing behavioral signals.
+            </div>
+          );
+        })()}
       </div>
 
       {/* ── Charts ── */}
