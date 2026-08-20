@@ -95,7 +95,7 @@ export default function VideoUploader({ onAnalysisComplete, onJobCreated, backen
     <div className="uploader-root">
       {/* ── Left Sidebar ── */}
       <aside className="module-sidebar">
-        <div className="sidebar-section-label">Detection Modules</div>
+        <h2 className="sidebar-section-label">Detection Modules</h2>
         {MODULES.map((m) => (
           <div key={m.id} className="module-check-item">
             <div className={`module-check-icon ${m.cls}`}>{m.icon}</div>
@@ -107,7 +107,7 @@ export default function VideoUploader({ onAnalysisComplete, onJobCreated, backen
           </div>
         ))}
 
-        <div className="sidebar-section-label" style={{ marginTop: 8 }}>Model Info</div>
+        <h2 className="sidebar-section-label" style={{ marginTop: 8 }}>Model Info</h2>
         <div className="model-info-card">
           {[
             ["Accuracy",   "97.42%"],
@@ -251,7 +251,7 @@ export default function VideoUploader({ onAnalysisComplete, onJobCreated, backen
 
         {/* Best practices */}
         <div className="best-practices">
-          <div className="best-practices-title">📋 Evidence Quality Guidelines</div>
+          <h3 className="best-practices-title">📋 Evidence Quality Guidelines</h3>
           <ul className="best-practices-list">
             <li>Clear frontal face positioning</li>
             <li>Adequate lighting conditions</li>

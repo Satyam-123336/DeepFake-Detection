@@ -170,7 +170,7 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
         </div>
 
         <div className="verdict-details">
-          <div className="verdict-title">{verdictMap[riskLevel.toLowerCase()] ?? "Analysis Complete"}</div>
+          <h1 className="verdict-title">{verdictMap[riskLevel.toLowerCase()] ?? "Analysis Complete"}</h1>
           <div className="verdict-file">📁 {data.video_file || "Unknown file"}</div>
           <div className="verdict-meta-row">
             <div className="verdict-meta-item">
@@ -215,10 +215,10 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
       {/* ── Module Donut Grid ── */}
       <div>
         <div className="section-header">
-          <div className="section-title">
+          <h2 className="section-title">
             🔬 Module Suspicion Scores
             <span className="section-title-label">Per-Signal Breakdown</span>
-          </div>
+          </h2>
         </div>
         <div className="module-grid">
           {Object.entries(moduleScores).map(([key, val]) => {
@@ -252,15 +252,15 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
       {/* ── Charts ── */}
       <div>
         <div className="section-header">
-          <div className="section-title">
+          <h2 className="section-title">
             📊 Visual Analysis
             <span className="section-title-label">Recharts Multi-View</span>
-          </div>
+          </h2>
         </div>
         <div className="charts-grid">
           {/* Bar Chart */}
           <div className="chart-card">
-            <div className="chart-card-title">Suspicion Score by Module</div>
+            <h3 className="chart-card-title">Suspicion Score by Module</h3>
             <ResponsiveContainer width="100%" height={240}>
               <BarChart data={barData} margin={{ left: -10 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} />
@@ -282,7 +282,7 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
 
           {/* Pie Chart */}
           <div className="chart-card">
-            <div className="chart-card-title">Weighted Score Contribution</div>
+            <h3 className="chart-card-title">Weighted Score Contribution</h3>
             <ResponsiveContainer width="100%" height={200}>
               <PieChart>
                 <Pie
@@ -317,7 +317,7 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
 
           {/* Radar Chart */}
           <div className="chart-card full-width">
-            <div className="chart-card-title">Multi-Signal Forensic Profile Radar</div>
+            <h3 className="chart-card-title">Multi-Signal Forensic Profile Radar</h3>
             <ResponsiveContainer width="100%" height={320}>
               <RadarChart data={radarData}>
                 <PolarGrid stroke={colors.grid} />
@@ -338,10 +338,10 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
       {/* ── Evidence Chain ── */}
       <div>
         <div className="section-header">
-          <div className="section-title">
+          <h2 className="section-title">
             🔗 Evidence Signal Chain
             <span className="section-title-label">Availability</span>
-          </div>
+          </h2>
         </div>
         <div className="evidence-chain">
           {Object.entries(evidenceSignals).map(([label, active]) => (
@@ -359,10 +359,10 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
       {/* ── Findings ── */}
       <div>
         <div className="section-header">
-          <div className="section-title">
+          <h2 className="section-title">
             📋 Forensic Findings
             <span className="section-title-label">{reasonList.length} finding(s)</span>
-          </div>
+          </h2>
         </div>
         <div className="findings-list">
           {reasonList.length > 0 ? reasonList.map((r, i) => {
@@ -385,10 +385,10 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
       {/* ── Technical Details ── */}
       <div className="glass-panel" style={{ padding: 20 }}>
         <div className="section-header" style={{ marginBottom: 12 }}>
-          <div className="section-title">
+          <h2 className="section-title">
             🛠️ Technical Measurements
             <span className="section-title-label">Raw Metrics</span>
-          </div>
+          </h2>
         </div>
         <table className="detail-table">
           <thead>
@@ -445,9 +445,9 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
 
       {/* ── Recommendations ── */}
       <div className="recommendation-panel">
-        <div className="section-title" style={{ marginBottom: 8 }}>
+        <h2 className="section-title" style={{ marginBottom: 8 }}>
           💡 Investigator Recommendations
-        </div>
+        </h2>
         {riskLevel.toLowerCase() === "high" && (
           <div className="alert-banner danger" style={{ marginBottom: 12 }}>
             <span>🚨</span>

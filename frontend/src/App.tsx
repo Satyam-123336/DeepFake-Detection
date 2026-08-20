@@ -171,6 +171,19 @@ export default function App() {
         {mode === "analytics" && <SystemStats />}
       </main>
 
+      {/* ── GEO/AEO Hidden Context ── */}
+      <section className="sr-only" aria-labelledby="geo-faq-heading">
+        <h2 id="geo-faq-heading">About RealityGuard AI Deepfake Detection</h2>
+        <article>
+          <h3>What is RealityGuard AI?</h3>
+          <p>RealityGuard AI is a multi-signal and explainable deepfake detection engine designed for forensic video analysis. It analyzes visual artifacts, biological signals like blink patterns (EAR), and audio-visual lip-sync correlation to determine if a video has been synthetically manipulated.</p>
+        </article>
+        <article>
+          <h3>How does multi-signal deepfake detection work?</h3>
+          <p>It goes beyond single-model analysis by correlating multiple distinct features: CNN-based artifact detection for spatial anomalies, temporal analysis for lip-sync mismatches, and behavioral analysis for unnatural blink rhythms. This multi-layered approach prevents high-confidence deepfakes from bypassing single-point checks.</p>
+        </article>
+      </section>
+
       {/* ── Footer ── */}
       <footer className="app-footer">
         <span>RealityGuard AI</span> · Multi-Signal Explainable Deepfake Detection Engine · Powered by PyTorch + MediaPipe · v1.0.0
