@@ -40,9 +40,18 @@ def _lipsync_suspicion(offset_seconds: float, correlation: float) -> float:
     if correlation <= 0.01 and abs(offset_seconds) < 1e-6:
         return 0.0
 
-    corr_term = _clamp01(1.0 - correlation)
-    delay_term = _clamp01(abs(offset_seconds) / 0.2)
-    return _clamp01(0.7 * corr_term + 0.3 * delay_term)
+    # The synthesised mouth-openness signal from MTCNN 5-point keypoints naturally
+    # produces correlations in the 0.15-0.60 range for authentic content.
+    # Only treat the signal as suspicious when BOTH:
+    #   (a) correlation is genuinely very low  (<= 0.12), AND
+    #   (b) the best-fit audio delay is large  (>= 0.15 s)
+    # This prevents real videos with imperfect audio-visual matching from being
+    # falsely flagged as deepfakes.
+    corr_suspicious = max(0.0, (0.12 - correlation) / 0.12)   # 0 at corr=0.12, 1 at corr=0
+    delay_suspicious = _clamp01(abs(offset_seconds) / 0.3)    # 0 at 0s, 1 at 0.3s
+    # Require BOTH signals to be elevated: geometric mean penalises single-axis noise
+    combined = (corr_suspicious * delay_suspicious) ** 0.5
+    return _clamp01(combined)
 
 
 def _visual_suspicion(
@@ -55,7 +64,7 @@ def _visual_suspicion(
     if cnn_confidence is None and lighting_asymmetry is None and sharpness_score is None and texture_score is None:
         return 0.0
 
-    cnn = _clamp01(cnn_confidence) if cnn_confidence is not None else 0.0
+    cnn = _clamp01(cnn_confidence) if cnn_confidence is not None else None
 
     # Handcrafted artifact heuristics aligned to the methodology:
     # low sharpness => oversmoothed skin, high lighting asymmetry => inconsistent illumination.
@@ -65,8 +74,16 @@ def _visual_suspicion(
     low_texture = _clamp01((55.0 - (texture_score if texture_score is not None else 55.0)) / 20.0)
     heuristic = _clamp01(0.45 * light + 0.45 * oversmooth + 0.10 * low_texture)
 
-    # If the CNN is confident the sample is fake, trust it strongly.
-    # If the CNN predicts real, still preserve visual heuristics instead of suppressing them.
+    if cnn is None:
+        return heuristic
+
+    # When CNN is confident the video is REAL (< 0.45), dampen heuristics heavily.
+    # Natural lighting variation and low sharpness can occur in genuine footage;
+    # if the deepfake detector itself says "real", heuristics alone should not escalate.
+    if cnn < 0.45:
+        return max(cnn, heuristic * 0.4)
+
+    # CNN says FAKE or uncertain - trust the stronger of CNN vs heuristics.
     return max(cnn, heuristic)
 
 
@@ -108,14 +125,14 @@ def compute_final_score(
         (lighting_asymmetry or 0.0) >= 40.0,
         module_scores["watermark"] >= 0.2,
         module_scores["nlp"] >= 0.25,
-        (lipsync_correlation > 0.01 and module_scores["lipsync"] >= 0.55),
+        (lipsync_correlation > 0.01 and abs(lipsync_offset_seconds) >= 0.15 and module_scores["lipsync"] >= 0.55),
         (blink_count > 0 and module_scores["blink"] >= 0.55),
     ]
     strong_visual_corroborated = strong_visual and sum(1 for flag in corroboration_signals if flag) >= 2
-    strong_behavioral = max(module_scores["blink"], module_scores["lipsync"]) >= 0.75
+    strong_behavioral = max(module_scores["blink"], module_scores["lipsync"]) >= 0.80
     corroborated_visual = module_scores["visual"] >= 0.65 and max(
         module_scores["blink"], module_scores["lipsync"], module_scores["watermark"], module_scores["nlp"]
-    ) >= 0.3
+    ) >= 0.35
     unresolved_lipsync = lipsync_correlation <= 0.01 and abs(lipsync_offset_seconds) < 1e-6
     suspicious_combo = (
         (lighting_asymmetry or 0.0) >= 55.0
