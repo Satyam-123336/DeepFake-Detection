@@ -36,6 +36,6 @@ def run_preprocessing(video_path: Path, processed_dir: Path) -> PreprocessingRes
     audio_path = extract_audio(video_path, audio_dir)
     # Denser temporal sampling improves behavioral signals (blink and lip-sync).
     key_frames = extract_key_frames(video_path, frames_dir, interval_seconds=0.2)
-    timestamp_map_path = mapping_dir / f"{video_path.stem}_timestamp_map.json"
+    timestamp_map_path = mapping_dir / f"{artifact_dir.name}_timestamp_map.json"
     save_timestamp_map(key_frames, timestamp_map_path)
     return PreprocessingResult(metadata, audio_path, key_frames, timestamp_map_path, artifact_dir)
