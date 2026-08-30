@@ -11,7 +11,7 @@ from src.utils.cache_manager import cached, PersistentCache
 
 # BUG 7 FIX: Increment this whenever the pipeline logic changes to bust stale
 # cached results stored on disk (24h TTL cache bypassed otherwise).
-PIPELINE_VERSION = "2"
+PIPELINE_VERSION = "3"
 
 
 class OptimizedInferencePipeline:

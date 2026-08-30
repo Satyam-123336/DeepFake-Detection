@@ -20,7 +20,7 @@ const getRiskClass = (risk: string) => {
   }
 };
 
-const CHART_COLORS = ["#7c3aed", "#00d4aa", "#ef4444", "#f59e0b", "#10b981"];
+
 
 const DONUT_COLORS: Record<string, string> = {
   blink:     "#7c3aed",
@@ -103,8 +103,9 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
   const riskClass = getRiskClass(riskLevel);
   const reasonList: string[] = scoring.reasons || [];
 
-  const blinkUnavailable = (analysis.behavioral?.blink_count ?? 0) === 0
-    && (analysis.behavioral?.blink_irregularity ?? 1) >= 0.95;
+  // A video with 0 blinks is a valid behavioral finding (especially for short clips),
+  // not an unavailable signal. If a face is detected, the blink signal is available.
+  const blinkUnavailable = !analysis.visual?.face_path;
   // BUG 4 FIX: lipsync_error is the mean-absolute-error of signal correlation,
   // NOT an availability flag. A well-synced video can legitimately have error >= 0.99.
   // Use the same sentinel values the backend uses: correlation=0 AND offset=0 means unavailable.
@@ -117,7 +118,7 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
     "Blink Analysis":   !blinkUnavailable,
     "Lip-Sync":         !lipsyncUnavailable,
     "Speech Transcript":!transcriptUnavailable,
-    "Watermark Scan":   (analysis.watermark?.confidence || 0) > 0,
+    "Watermark Scan":   analysis.watermark !== undefined && analysis.watermark !== null,
   };
   const availableCount = Object.values(evidenceSignals).filter(Boolean).length;
   const evidenceQuality = Math.round((availableCount / Object.keys(evidenceSignals).length) * 100);
@@ -293,8 +294,8 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
                   labelLine={false}
                   label={false}
                 >
-                  {pieData.map((_, idx) => (
-                    <Cell key={`pc-${idx}`} fill={CHART_COLORS[idx % CHART_COLORS.length]} />
+                  {pieData.map((item, idx) => (
+                    <Cell key={`pc-${idx}`} fill={item.color} />
                   ))}
                 </Pie>
                 <Tooltip 
@@ -307,7 +308,7 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
             <ul className="pie-legend" aria-label="Risk distribution legend">
               {pieData.map((item, idx) => (
                 <li key={item.name} className="pie-legend-item">
-                  <span className="pie-legend-swatch" style={{ background: CHART_COLORS[idx % CHART_COLORS.length] }} />
+                  <span className="pie-legend-swatch" style={{ background: item.color }} />
                   <span className="pie-legend-label">{item.name}</span>
                   <span className="pie-legend-value">{item.value}%</span>
                 </li>
