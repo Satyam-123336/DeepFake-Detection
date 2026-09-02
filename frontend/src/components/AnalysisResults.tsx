@@ -306,7 +306,7 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
               </PieChart>
             </ResponsiveContainer>
             <ul className="pie-legend" aria-label="Risk distribution legend">
-              {pieData.map((item, idx) => (
+              {pieData.map((item) => (
                 <li key={item.name} className="pie-legend-item">
                   <span className="pie-legend-swatch" style={{ background: item.color }} />
                   <span className="pie-legend-label">{item.name}</span>
