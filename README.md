@@ -1,26 +1,3 @@
----
-title: RealityGuard AI — DeepFake Detection
-emoji: 🔍
-colorFrom: teal
-colorTo: blue
-sdk: streamlit
-sdk_version: 1.32.0
-app_file: streamlit_app.py
-pinned: true
-license: mit
-tags:
-  - deepfake-detection
-  - computer-vision
-  - pytorch
-  - mtcnn
-  - cnn
-  - lip-sync
-  - blink-detection
-  - forensic-analysis
-  - video-analysis
-short_description: Multi-signal explainable deepfake detection engine (AITA 2026 / Springer)
----
-
 # RealityGuard AI: A Multi-Signal and Explainable Deepfake Detection Engine
 
 > **🏆 Research Paper Accepted!**
