@@ -48,7 +48,15 @@ app = FastAPI(
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:8080", "*"],
+    allow_origins=[
+        # Hugging Face Spaces (React frontend)
+        "https://satyam-123336-realityguard-ai.hf.space",
+        # Local development
+        "http://localhost:3000",
+        "http://localhost:8080",
+        "http://localhost:5173",
+        # Add your custom domain here if you have one
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

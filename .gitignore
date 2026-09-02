@@ -6,6 +6,11 @@ __pycache__/
 venv/
 .pytest_cache/
 
+# Environment — keep secrets local, allow production config
+.env.local
+.env.*.local
+# NOTE: .env.production is safe to commit (no secrets, only public API URL)
+
 # Data (large files, generated at runtime)
 data/
 
