@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import os
 import shutil
@@ -346,8 +347,6 @@ async def websocket_job_progress(websocket: WebSocket, job_id: str) -> None:
                 break
 
             # Rate limit: poll every 500ms
-            import asyncio
-
             await asyncio.sleep(0.5)
 
     except Exception as e:
@@ -466,10 +465,11 @@ async def http_exception_handler(request, exc):
 
 if __name__ == "__main__":
     print("Starting DeepFake Detection API server...")
+    port = int(os.environ.get("PORT", 8000))
     uvicorn.run(
         "api_server:app",
         host="0.0.0.0",
-        port=8000,
-        reload=True,
+        port=port,
+        reload=False,  # Never reload=True in production
         log_level="info",
     )
