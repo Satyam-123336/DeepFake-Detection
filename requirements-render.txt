@@ -1,0 +1,20 @@
+# Render.com production requirements — CPU-only, minimal footprint
+# torch CPU-only is ~500MB vs ~2.4GB for full torch (critical for free tier 512MB RAM)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.2.2+cpu
+torchaudio==2.2.2+cpu
+
+numpy>=1.26,<2
+opencv-python-headless>=4.9,<5
+facenet-pytorch>=2.6.0
+librosa>=0.10
+soundfile>=0.12
+moviepy>=1.0
+PyYAML>=6.0
+Pillow>=10.2,<11
+fastapi>=0.104
+uvicorn[standard]>=0.24
+python-multipart>=0.0.6
+aiofiles>=23.2
+pandas>=1.5
+requests>=2.28
