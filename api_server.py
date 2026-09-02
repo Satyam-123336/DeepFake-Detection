@@ -51,6 +51,7 @@ app.add_middleware(
     allow_origins=[
         # Hugging Face Spaces (React frontend) — Satysam-26/RealityGuardAI
         "https://satysam-26-realityguardai.hf.space",
+        "https://satysam-26-realityguardai.static.hf.space",
         # Local development
         "http://localhost:3000",
         "http://localhost:8080",
