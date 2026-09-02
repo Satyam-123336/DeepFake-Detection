@@ -49,8 +49,8 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        # Hugging Face Spaces (React frontend)
-        "https://satyam-123336-realityguard-ai.hf.space",
+        # Hugging Face Spaces (React frontend) — Satysam-26/RealityGuardAI
+        "https://satysam-26-realityguardai.hf.space",
         # Local development
         "http://localhost:3000",
         "http://localhost:8080",
