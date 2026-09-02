@@ -12,6 +12,10 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
+import asyncio
+import urllib.request
+import os
+import shutil
 
 from fastapi import FastAPI, File, UploadFile, WebSocket, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
@@ -27,6 +31,23 @@ from src.utils.io import ensure_dir
 # CONFIGURATION
 # ============================================================================
 
+async def keep_alive():
+    """Background task to keep Render free tier awake by pinging itself."""
+    url = os.environ.get("RENDER_EXTERNAL_URL")
+    if not url:
+        print("keep_alive: No RENDER_EXTERNAL_URL found, skipping.")
+        return
+    health_url = f"{url}/health"
+    print(f"keep_alive: Starting ping loop for {health_url} every 14 minutes.")
+    while True:
+        await asyncio.sleep(14 * 60)  # Sleep 14 minutes
+        try:
+            # Run synchronous urllib in a thread to avoid blocking the event loop
+            await asyncio.to_thread(urllib.request.urlopen, health_url)
+            print(f"keep_alive: Successfully pinged {health_url}")
+        except Exception as e:
+            print(f"keep_alive error: {e}")
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Manage app startup and shutdown lifecycle."""
@@ -34,8 +55,13 @@ async def lifespan(app: FastAPI):
     print(f"Upload dir: {UPLOAD_DIR.resolve()}")
     print(f"Process dir: {PROCESSED_DIR.resolve()}")
     print(f"Jobs dir: {JOBS_DIR.resolve()}")
+    
+    # Start the keep-alive background task to bypass Render sleep
+    ping_task = asyncio.create_task(keep_alive())
+    
     yield
     print("DeepFake Detection API server shutting down...")
+    ping_task.cancel()
 
 
 app = FastAPI(
@@ -274,6 +300,19 @@ def _run_analysis(job_id: str, video_path: Path) -> None:
 
     except Exception as e:
         update_job(job_id, status="failed", progress=0, error=str(e))
+    finally:
+        # CLEANUP: Delete raw video and processed artifacts to prevent Render disk space runout
+        try:
+            if video_path.exists():
+                video_path.unlink()
+            
+            # The processed dir is usually named based on stem and job_id
+            job_stem = video_path.stem.replace(f"{job_id}_", "") if video_path.stem.startswith(job_id) else video_path.stem
+            out_dir = PROCESSED_DIR / f"{job_stem}_{job_id[:8]}"
+            if out_dir.exists() and out_dir.is_dir():
+                shutil.rmtree(out_dir)
+        except Exception as e:
+            print(f"Cleanup failed for {job_id}: {e}")
 
 
 @app.post("/api/analyze-sync")
