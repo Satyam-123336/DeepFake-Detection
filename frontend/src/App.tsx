@@ -186,7 +186,7 @@ export default function App() {
 
       {/* ── Footer ── */}
       <footer className="app-footer">
-        <span>RealityGuard AI</span> · Multi-Signal Explainable Deepfake Detection Engine · Powered by PyTorch + MediaPipe · v1.0.0
+        <span>RealityGuard AI</span> · Multi-Signal Explainable Deepfake Detection Engine · Powered by PyTorch + MTCNN · v1.0.0
       </footer>
     </div>
   );
