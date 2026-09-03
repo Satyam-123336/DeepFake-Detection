@@ -32,5 +32,4 @@ plotly>=5.17
 # ── Dev / Testing ─────────────────────────────────────────────────────────────
 pytest>=8.0
 
-gradio
-spaces
+huggingface-hub

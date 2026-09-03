@@ -7,6 +7,7 @@ from pathlib import Path
 import cv2
 import torch
 from PIL import Image
+from huggingface_hub import hf_hub_download
 
 from models.cnn.architecture import LightweightArtifactCNN
 
@@ -35,6 +36,17 @@ def load_fake_threshold(weights_path: Path) -> float:
 @functools.lru_cache(maxsize=4)
 def load_model(weights_path: Path) -> LightweightArtifactCNN:
     model = LightweightArtifactCNN()
+    
+    if not weights_path.exists():
+        print(f"[{weights_path.name}] Weights not found locally. Downloading from Hugging Face Model Repo...")
+        try:
+            downloaded_path = hf_hub_download(repo_id="Satysam-26/RealityGuardAI", filename=weights_path.name)
+            weights_path = Path(downloaded_path)
+            print(f"[{weights_path.name}] Successfully downloaded and cached weights.")
+        except Exception as e:
+            print(f"Failed to download weights: {e}")
+            raise FileNotFoundError(f"Missing weights: {weights_path.name}. Please ensure they are uploaded to your HF Model Repository.")
+            
     state_dict = torch.load(weights_path, map_location="cpu")
     model.load_state_dict(state_dict)
     model.eval()
