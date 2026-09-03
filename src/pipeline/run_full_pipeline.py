@@ -23,7 +23,8 @@ def _resolve_weights_path() -> Path | None:
     for candidate in candidates:
         if candidate.exists():
             return candidate
-    return None
+    # If not found locally, return the default so hf_hub_download can fetch it
+    return candidates[0]
 
 
 @dataclass(slots=True)

@@ -36,7 +36,7 @@ def run_visual_analysis(
     lighting = compute_lighting_asymmetry(face_path)
 
     cnn_result = None
-    if weights_path is not None and weights_path.exists():
+    if weights_path is not None:
         cnn_result = run_cnn_inference(face_path, weights_path)
 
     return VisualResult(face_path, features, lighting, cnn_result)
