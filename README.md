@@ -1,9 +1,11 @@
 # RealityGuard AI: A Multi-Signal and Explainable Deepfake Detection Engine
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22282866.svg)](https://doi.org/10.5281/zenodo.22282866)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22282866.svg)](https://doi.org/10.5281/zenodo.22282866) [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model%20Weights-orange)](https://huggingface.co/Satysam-26/RealityGuardAI)
 
 > **🏆 Research Paper Accepted!**
 > "RealityGuard AI: A Multi-Signal and Explainable Deepfake Detection Engine" has been accepted for presentation at the **AITA 2026 International Conference** and will be published in **Springer Lecture Notes in Networks and Systems (Scopus-indexed)**.
+
+👉 **[Download the Pre-Trained CNN Weights from our Hugging Face Model Repository](https://huggingface.co/Satysam-26/RealityGuardAI)**
 
 This project implements a complete, end-to-end multi-signal deepfake detection pipeline, combining visual artifact analysis, behavioral inconsistencies (blink rate, lip-sync), and forensic watermarking detection.
 
