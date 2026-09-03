@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import axios from "axios";
+import { Client } from "@gradio/client";
 import "./VideoUploader.css";
 
 interface VideoUploaderProps {
@@ -61,24 +61,25 @@ export default function VideoUploader({ onAnalysisComplete, onJobCreated, backen
     setLoading(true);
     setError("");
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const endpoint = syncMode ? `${apiBase}/api/analyze-sync` : `${apiBase}/api/analyze`;
-      const response = await axios.post(endpoint, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-        timeout: 240000,
-      });
-      if (syncMode) {
-        onAnalysisComplete(response.data);
-      } else {
-        onJobCreated(response.data.job_id);
+      // For Gradio, apiBase should be "Username/SpaceName"
+      let appName = apiBase;
+      if (appName.includes("http")) {
+        appName = "Satysam-26/RealityGuardAI-API"; // fallback
       }
+      
+      console.log("Connecting to Gradio Space:", appName);
+      const client = await Client.connect(appName);
+      
+      console.log("Uploading and analyzing via ZeroGPU...");
+      const result = await client.predict("/predict", [file]);
+      
+      console.log("ZeroGPU Result:", result.data);
+      // Gradio returns data as an array matching outputs (we have 1 output)
+      onAnalysisComplete(result.data[0]);
+      
     } catch (err: any) {
-      if (axios.isAxiosError(err) && !err.response) {
-        setError(`Cannot reach backend at ${apiBase}. Ensure the API server is running.`);
-      } else {
-        setError(err.response?.data?.detail || "Upload failed. Please retry.");
-      }
+      console.error(err);
+      setError("Failed to process via Gradio API. Please ensure the Space is active.");
     } finally {
       setLoading(false);
     }
