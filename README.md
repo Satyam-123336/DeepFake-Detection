@@ -1,5 +1,7 @@
 # RealityGuard AI: A Multi-Signal and Explainable Deepfake Detection Engine
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22282866.svg)](https://doi.org/10.5281/zenodo.22282866)
+
 > **🏆 Research Paper Accepted!**
 > "RealityGuard AI: A Multi-Signal and Explainable Deepfake Detection Engine" has been accepted for presentation at the **AITA 2026 International Conference** and will be published in **Springer Lecture Notes in Networks and Systems (Scopus-indexed)**.
 
@@ -31,3 +33,18 @@ streamlit run streamlit_app.py
 | 📊 Visual Artifacts | CNN + heuristics | 35% |
 | 🔍 Watermark/Trace | Metadata + frame patterns | 10% |
 | 🎤 Speech Pattern | NLP suspicion scoring | 10% |
+
+## Citation
+
+If you use this architecture or model in your research, please cite it using the following DOI:
+
+```bibtex
+@software{realityguardai_2026,
+  author       = {Satyam},
+  title        = {RealityGuardAI: A Multi-Signal and Explainable Deepfake Detection Engine},
+  year         = 2026,
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.22282866},
+  url          = {https://doi.org/10.5281/zenodo.22282866}
+}
+```
