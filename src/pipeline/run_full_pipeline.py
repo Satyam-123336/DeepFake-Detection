@@ -16,8 +16,8 @@ from src.utils.io import ensure_dir
 
 def _resolve_weights_path() -> Path | None:
     candidates = [
-        Path("models/cnn/weights/lightweight_artifact_cnn_1000_fresh.pt"),
         Path("models/cnn/weights/lightweight_artifact_cnn.pt"),
+        Path("models/cnn/weights/lightweight_artifact_cnn_1000_fresh.pt"),
         Path("models/cnn/weights/demo_lightweight_artifact_cnn.pt"),
     ]
     for candidate in candidates:
@@ -120,12 +120,14 @@ def run_phase_four_pipeline(video_path: Path, processed_dir: Path) -> PhaseFourP
             visual_candidates.append(candidate)
 
     if visual_candidates:
-        def _candidate_score(item: VisualResult) -> float:
-            cnn_fake = item.cnn_result.fake_probability if item.cnn_result else 0.0
-            light = min(max((item.lighting_asymmetry or 0.0) / 80.0, 0.0), 1.0)
-            return max(cnn_fake, 0.35 * light)
-
-        visual_result = max(visual_candidates, key=_candidate_score)
+        # Robust forensic aggregation: sort by CNN fake probability and select the median candidate
+        # to prevent isolated motion-blurred, head-turn, or blink outlier frames from skewing the verdict.
+        sorted_candidates = sorted(
+            visual_candidates,
+            key=lambda x: (x.cnn_result.fake_probability if x.cnn_result else 0.0),
+        )
+        median_idx = len(sorted_candidates) // 2
+        visual_result = sorted_candidates[median_idx]
 
     watermark_result = detect_watermark_traces(video_path, frame_paths)
     transcript_result = transcribe_audio_proxy(preprocessing_result.audio_path)

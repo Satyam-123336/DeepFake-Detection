@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 import cv2
+import numpy as np
 import torch
 from PIL import Image
 from huggingface_hub import hf_hub_download
@@ -67,8 +68,8 @@ def predict_face_image(face_image_path: Path, weights_path: Path) -> tuple[int, 
 
     rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     resized = Image.fromarray(rgb).resize((128, 128))
-    tensor = torch.tensor(list(resized.getdata()), dtype=torch.float32).view(128, 128, 3)
-    tensor = tensor.permute(2, 0, 1).unsqueeze(0) / 255.0
+    array = np.asarray(resized, dtype=np.float32) / 255.0
+    tensor = torch.from_numpy(array).permute(2, 0, 1).unsqueeze(0)
 
     with torch.no_grad():
         logits = model(tensor)

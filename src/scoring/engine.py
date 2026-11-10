@@ -17,40 +17,38 @@ def _clamp01(value: float) -> float:
 
 def _blink_suspicion(duration_seconds: float, blink_count: int, irregularity: float) -> float:
     if duration_seconds <= 0:
-        # No video duration means we cannot evaluate blink patterns at all.
         return 0.0
 
-    # No detected blink windows with default irregularity (>= 0.95) means the landmark
-    # detector found no blink events - this is an unavailable signal, not a suspicious one.
-    # Return 0.0 so the module score honestly reflects "no data" rather than a false alarm.
-    if blink_count == 0 and irregularity >= 0.95:
-        return 0.0
+    # Short clips under 4s: not blinking is completely natural
+    if duration_seconds < 4.0:
+        return 0.05 if blink_count == 0 else 0.08
 
     rate_per_min = blink_count / (duration_seconds / 60.0)
-    too_low = _clamp01((6.0 - rate_per_min) / 6.0) if rate_per_min < 6.0 else 0.0
+    # Natural human blink rate is ~12-25 blinks/min.
+    # Abnormally low (< 8 blinks/min) is a classic deepfake indicator.
+    # Abnormally high (> 35 blinks/min) indicates rapid fluttering artifacts.
+    too_low = _clamp01((8.0 - rate_per_min) / 8.0) if rate_per_min < 8.0 else 0.0
     too_high = _clamp01((rate_per_min - 35.0) / 20.0) if rate_per_min > 35.0 else 0.0
     uniformity = _clamp01((0.25 - irregularity) / 0.25) if irregularity < 0.25 else 0.0
-    return _clamp01(0.45 * max(too_low, too_high) + 0.55 * uniformity)
+    return _clamp01(0.55 * max(too_low, too_high) + 0.45 * uniformity)
 
 
 def _lipsync_suspicion(offset_seconds: float, correlation: float) -> float:
-    # This pattern (correlation=0, offset=0) is emitted by the behavioral stage when
-    # lip-sync could not be estimated (e.g. no audio). Return 0.0 to reflect unavailable
-    # signal, not suspicion. This prevents false positive scores in the UI.
-    if correlation <= 0.01 and abs(offset_seconds) < 1e-6:
+    # Unavailable or non-speaking signal
+    if (correlation <= 0.01 and abs(offset_seconds) < 1e-6) or correlation < 0.05:
         return 0.0
 
-    # The synthesised mouth-openness signal from MTCNN 5-point keypoints naturally
-    # produces correlations in the 0.15-0.60 range for authentic content.
-    # Only treat the signal as suspicious when BOTH:
-    #   (a) correlation is genuinely very low  (<= 0.12), AND
-    #   (b) the best-fit audio delay is large  (>= 0.15 s)
-    # This prevents real videos with imperfect audio-visual matching from being
-    # falsely flagged as deepfakes.
-    corr_suspicious = max(0.0, (0.12 - correlation) / 0.12)   # 0 at corr=0.12, 1 at corr=0
-    delay_suspicious = _clamp01(abs(offset_seconds) / 0.3)    # 0 at 0s, 1 at 0.3s
-    # Require BOTH signals to be elevated: geometric mean penalises single-axis noise
-    combined = (corr_suspicious * delay_suspicious) ** 0.5
+    # Dynamic mouth aperture cross-correlation with audio RMS:
+    # Natural speech sync: offset <= 0.18s with correlation >= 0.25
+    corr_deficit = max(0.0, (0.28 - correlation) / 0.28)
+    delay_deficit = _clamp01((abs(offset_seconds) - 0.15) / 0.35) if abs(offset_seconds) > 0.15 else 0.0
+    combined = 0.40 * corr_deficit + 0.60 * delay_deficit
+    
+    # Severe desync penalty applies when there is a clear audio-visual signal (correlation >= 0.10)
+    # that is substantially delayed (>= 0.30s, well beyond ITU-R human perception limit of 125ms)
+    if abs(offset_seconds) >= 0.30 and correlation >= 0.10:
+        lag_severity = min(1.0, 0.70 + 0.30 * min((abs(offset_seconds) - 0.30) / 0.15, 1.0))
+        return _clamp01(max(combined, lag_severity))
     return _clamp01(combined)
 
 
@@ -66,24 +64,27 @@ def _visual_suspicion(
 
     cnn = _clamp01(cnn_confidence) if cnn_confidence is not None else None
 
-    # Handcrafted artifact heuristics aligned to the methodology:
-    # low sharpness => oversmoothed skin, high lighting asymmetry => inconsistent illumination.
+    # Handcrafted artifact heuristics:
     light = _clamp01((lighting_asymmetry or 0.0) / 80.0)
-    sharpness_val = sharpness_score if sharpness_score is not None else 400.0
-    oversmooth = _clamp01((400.0 - sharpness_val) / 400.0)
-    low_texture = _clamp01((55.0 - (texture_score if texture_score is not None else 55.0)) / 20.0)
-    heuristic = _clamp01(0.45 * light + 0.45 * oversmooth + 0.10 * low_texture)
+    sharpness_val = sharpness_score if sharpness_score is not None else 80.0
+    oversmooth = _clamp01((40.0 - sharpness_val) / 35.0) if sharpness_val < 40.0 else 0.0
+    low_texture = _clamp01((35.0 - (texture_score if texture_score is not None else 35.0)) / 20.0)
+    heuristic = _clamp01(0.50 * light + 0.40 * oversmooth + 0.10 * low_texture)
 
     if cnn is None:
         return heuristic
 
-    # When CNN is confident the video is REAL (< 0.45), dampen heuristics heavily.
-    # Natural lighting variation and low sharpness can occur in genuine footage;
-    # if the deepfake detector itself says "real", heuristics alone should not escalate.
-    if cnn < 0.45:
-        return max(cnn, heuristic * 0.4)
+    # When CNN is confident the face is REAL (< 0.20):
+    # CNN is the primary neural artifact detector; heuristics provide faint baseline evidence
+    # without forcing a false-positive escalation on natural lighting.
+    if cnn < 0.20:
+        return max(cnn, heuristic * 0.60)
 
-    # CNN says FAKE or uncertain - trust the stronger of CNN vs heuristics.
+    # When CNN is intermediate (0.20 to 0.70):
+    if cnn <= 0.70:
+        return 0.65 * cnn + 0.35 * heuristic
+
+    # CNN says FAKE (> 0.70):
     return max(cnn, heuristic)
 
 
@@ -119,50 +120,45 @@ def compute_final_score(
 
     confidence = _clamp01(sum(module_scores[name] * weights[name] for name in module_scores))
 
-    # Escalation rules: a strong primary signal should not be averaged down to low risk.
-    strong_visual = module_scores["visual"] >= 0.75
+    # Escalation rules:
+    # 1. Strong neural visual artifact detection (CNN >= 0.70)
+    strong_visual = module_scores["visual"] >= 0.70
+    # 2. Strong lip-sync desync with genuine correlation
+    strong_lipsync = module_scores["lipsync"] >= 0.70 and lipsync_correlation >= 0.10
+    # 3. Corroborating signals
     corroboration_signals = [
-        (lighting_asymmetry or 0.0) >= 40.0,
-        module_scores["watermark"] >= 0.2,
-        module_scores["nlp"] >= 0.25,
-        (lipsync_correlation > 0.01 and abs(lipsync_offset_seconds) >= 0.15 and module_scores["lipsync"] >= 0.55),
-        (blink_count > 0 and module_scores["blink"] >= 0.55),
+        strong_visual,
+        strong_lipsync,
+        module_scores["watermark"] >= 0.20,
+        module_scores["nlp"] >= 0.20,
+        module_scores["blink"] >= 0.50 and blink_count > 0,
     ]
-    strong_visual_corroborated = strong_visual and sum(1 for flag in corroboration_signals if flag) >= 2
-    strong_behavioral = max(module_scores["blink"], module_scores["lipsync"]) >= 0.80
-    corroborated_visual = module_scores["visual"] >= 0.65 and max(
-        module_scores["blink"], module_scores["lipsync"], module_scores["watermark"], module_scores["nlp"]
-    ) >= 0.35
-    unresolved_lipsync = lipsync_correlation <= 0.01 and abs(lipsync_offset_seconds) < 1e-6
-    suspicious_combo = (
-        (lighting_asymmetry or 0.0) >= 55.0
-        and module_scores["visual"] >= 0.8
-        and blink_count == 0
-        and unresolved_lipsync
-        and (module_scores["watermark"] >= 0.15 or module_scores["nlp"] >= 0.2)
-    )
+    corroboration_count = sum(1 for flag in corroboration_signals if flag)
 
     confidence_floor = 0.0
-    
-    if strong_visual and strong_visual_corroborated:
+
+    # 4. Multi-signal behavioral desync + physical anomaly (catches faceswaps that evade simple CNNs)
+    dubbed_faceswap = (
+        module_scores["lipsync"] >= 0.55
+        and lipsync_correlation >= 0.10
+        and ((lighting_asymmetry or 0.0) >= 55.0 or module_scores["watermark"] >= 0.14)
+    )
+
+    if strong_visual and corroboration_count >= 2:
         confidence_floor = 0.90
-    elif strong_visual and strong_behavioral:
-        confidence_floor = 0.85
     elif strong_visual:
-        # A pristine visual deepfake without other corroborating flaws still warrants high risk
         confidence_floor = 0.75
-    elif strong_behavioral:
-        confidence_floor = 0.65
-    elif corroborated_visual:
-        confidence_floor = 0.60
-    elif suspicious_combo:
-        confidence_floor = 0.60
+    elif strong_lipsync and (module_scores["visual"] >= 0.50 or corroboration_count >= 2 or module_scores["lipsync"] >= 0.85):
+        confidence_floor = 0.75
+    elif dubbed_faceswap:
+        confidence_floor = 0.75
 
-    confidence = max(confidence, confidence_floor)
+    final_confidence = max(confidence, confidence_floor)
 
-    if confidence >= 0.7:
+    # Clean risk classification
+    if final_confidence >= 0.65:
         risk = "high"
-    elif confidence >= 0.45:
+    elif final_confidence >= 0.38:
         risk = "medium"
     else:
         risk = "low"
@@ -180,7 +176,7 @@ def compute_final_score(
         reasons = ["No single module exceeded suspicious threshold"]
 
     return FinalScoreResult(
-        confidence_score=confidence,
+        confidence_score=final_confidence,
         risk_level=risk,
         module_scores=module_scores,
         reasons=reasons,

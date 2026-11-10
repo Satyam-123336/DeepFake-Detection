@@ -8,10 +8,11 @@ from typing import Any
 
 from src.pipeline.run_full_pipeline import run_phase_four_pipeline
 from src.utils.cache_manager import cached, PersistentCache
+from src.utils.video_cache import video_cache_manager
 
 # BUG 7 FIX: Increment this whenever the pipeline logic changes to bust stale
 # cached results stored on disk (24h TTL cache bypassed otherwise).
-PIPELINE_VERSION = "3"
+PIPELINE_VERSION = "9"
 
 
 class OptimizedInferencePipeline:
@@ -30,12 +31,13 @@ class OptimizedInferencePipeline:
             header = f.read(1024 * 1024)
             f.seek(0, 2)
             size = f.tell()
-        key_data = f"{header}{size}".encode()
-        return hashlib.md5(key_data).hexdigest()[:16]
+        hasher = hashlib.md5(header)
+        hasher.update(str(size).encode())
+        return hasher.hexdigest()[:16]
 
     def analyze_video(self, video_path: Path, processed_dir: Path, force_refresh: bool = False) -> dict[str, Any]:
         """
-        Run full pipeline with intelligent caching.
+        Run full pipeline with intelligent caching and deduplication.
 
         Args:
             video_path: Path to input video
@@ -49,8 +51,12 @@ class OptimizedInferencePipeline:
         video_path = Path(video_path)
         processed_dir = Path(processed_dir)
 
+        # Store / index in video cache for deduplication
+        stored_path, video_hash, is_dup = video_cache_manager.store(video_path, video_path.name)
+        # Use stored canonical path if caller passed a transient upload path
+        active_video_path = stored_path if stored_path.exists() else video_path
+
         # Generate cache key based on video content
-        video_hash = self._video_hash(video_path)
         # BUG 7 FIX: Include pipeline version in cache key so cached results from
         # older code are automatically invalidated after logic changes.
         cache_key = f"inference_{video_hash}_v{PIPELINE_VERSION}"
@@ -60,11 +66,18 @@ class OptimizedInferencePipeline:
             cached_result = self.persistent_cache.get(cache_key)
             if cached_result is not None:
                 self._cache_hits += 1
-                return cached_result
+                result_copy = dict(cached_result)
+                result_copy["from_cache"] = True
+                result_copy["video_hash"] = video_hash
+                result_copy["is_duplicate"] = is_dup
+                return result_copy
 
         # Run pipeline if not cached
-        result = run_phase_four_pipeline(video_path, processed_dir)
+        result = run_phase_four_pipeline(active_video_path, processed_dir)
         payload = result.to_dict()
+        payload["from_cache"] = False
+        payload["video_hash"] = video_hash
+        payload["is_duplicate"] = is_dup
 
         # Store in persistent cache (24-hour TTL for full inference results)
         self.persistent_cache.set(cache_key, payload, ttl_seconds=86400)
@@ -87,9 +100,13 @@ class OptimizedInferencePipeline:
 _optimized_pipeline = OptimizedInferencePipeline()
 
 
-def analyze_video_optimized(video_path: Path, processed_dir: Path = Path("data/processed")) -> dict[str, Any]:
+def analyze_video_optimized(
+    video_path: Path,
+    processed_dir: Path = Path("data/processed"),
+    force_refresh: bool = False,
+) -> dict[str, Any]:
     """Convenience function for optimized analysis."""
-    return _optimized_pipeline.analyze_video(video_path, processed_dir)
+    return _optimized_pipeline.analyze_video(video_path, processed_dir, force_refresh=force_refresh)
 
 
 def get_optimization_stats() -> dict[str, Any]:

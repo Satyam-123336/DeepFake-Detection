@@ -192,6 +192,14 @@ export default function AnalysisResults({ data, onReset }: AnalysisResultsProps)
                 {Object.keys(moduleScores).length} active
               </span>
             </div>
+            {(data.from_cache || data.analysis?.from_cache) && (
+              <div className="verdict-meta-item">
+                <span className="verdict-meta-label">Source</span>
+                <span className="verdict-meta-value" style={{ color: "#00d4aa", fontWeight: 700 }}>
+                  ⚡ Cached
+                </span>
+              </div>
+            )}
             {data.completed_at && (
               <div className="verdict-meta-item">
                 <span className="verdict-meta-label">Completed</span>

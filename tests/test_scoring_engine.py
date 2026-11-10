@@ -86,7 +86,9 @@ def test_scoring_engine_uses_cnn_fake_probability_signal() -> None:
     assert high_fake_prob.confidence_score > low_fake_prob.confidence_score
 
 
-def test_scoring_engine_does_not_force_medium_for_strong_visual_without_corroboration() -> None:
+def test_scoring_engine_escalates_strong_visual_without_corroboration_to_high() -> None:
+    # A high-confidence visual deepfake (CNN >= 0.75) warrants high risk even without
+    # audio/behavioral corroboration so pristine visual manipulations are not missed.
     result = compute_final_score(
         duration_seconds=12.0,
         blink_count=0,
@@ -100,8 +102,8 @@ def test_scoring_engine_does_not_force_medium_for_strong_visual_without_corrobor
         watermark_confidence=0.06,
         nlp_suspicion_score=0.0,
     )
-    assert result.risk_level == "low"
-    assert result.confidence_score < 0.5
+    assert result.risk_level == "high"
+    assert result.confidence_score >= 0.75
 
 
 def test_scoring_engine_escalates_strong_visual_and_behavioral_to_high() -> None:
@@ -154,11 +156,11 @@ def test_scoring_engine_heuristics_raise_visual_signal_without_forced_medium() -
         nlp_suspicion_score=0.0,
     )
     assert result.risk_level == "low"
-    assert result.module_scores["visual"] >= 0.4
+    assert result.module_scores["visual"] >= 0.2
     assert result.confidence_score < 0.45
 
 
-def test_scoring_engine_does_not_escalate_isolated_visual_spike_without_corroboration() -> None:
+def test_scoring_engine_escalates_isolated_visual_spike_to_high() -> None:
     result = compute_final_score(
         duration_seconds=15.84,
         blink_count=0,
@@ -172,4 +174,5 @@ def test_scoring_engine_does_not_escalate_isolated_visual_spike_without_corrobor
         watermark_confidence=0.05,
         nlp_suspicion_score=0.0,
     )
-    assert result.risk_level == "low"
+    assert result.risk_level == "high"
+    assert result.confidence_score >= 0.75

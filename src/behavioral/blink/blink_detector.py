@@ -13,7 +13,7 @@ class BlinkDetectionResult:
 
 
 class BlinkDetector:
-    def __init__(self, ear_threshold: float = 0.21, min_consecutive_frames: int = 2) -> None:
+    def __init__(self, ear_threshold: float = 0.21, min_consecutive_frames: int = 1) -> None:
         self.ear_threshold = ear_threshold
         self.min_consecutive_frames = min_consecutive_frames
 

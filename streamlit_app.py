@@ -11,6 +11,7 @@ import plotly.express as px
 import pandas as pd
 
 from src.pipeline.optimized_inference import analyze_video_optimized, get_optimization_stats
+from src.utils.video_cache import video_cache_manager
 from src.utils.io import ensure_dir
 
 
@@ -469,8 +470,8 @@ if mode == "Upload & Analyze":
     force_refresh = st.checkbox("🔄 Force reprocess (ignore cache)", value=False)
 
     if upload is not None:
-        save_path = upload_dir / upload.name
-        save_path.write_bytes(upload.read())
+        raw_bytes = upload.read()
+        save_path, video_hash, is_duplicate = video_cache_manager.store(raw_bytes, upload.name)
 
         # Display uploaded video and metadata
         media_col, info_col = st.columns([1.6, 1.2])
@@ -481,7 +482,10 @@ if mode == "Upload & Analyze":
         with info_col:
             st.markdown("### 📋 File Info")
             st.caption(f"**Name:** {upload.name}")
-            st.caption(f"**Size:** {upload.size / (1024*1024):.2f} MB")
+            st.caption(f"**Size:** {len(raw_bytes) / (1024*1024):.2f} MB")
+            st.caption(f"**Content Hash:** `{video_hash}`")
+            if is_duplicate:
+                st.info("⚡ **Deduplicated:** Video already stored in cache (no duplicate disk usage)")
             st.caption("💡 Clear speaking clips with visible face work best!")
 
         # Run analysis button
@@ -498,32 +502,23 @@ if mode == "Upload & Analyze":
             progress_bar = st.progress(0)
             status_text = st.empty()
 
-            status_text.text("⏳ Running preprocessing...")
-            progress_bar.progress(20)
+            status_text.text("⏳ Checking deduplication & cache layer...")
+            progress_bar.progress(15)
 
-            status_text.text("⏳ Analyzing behavioral patterns...")
-            progress_bar.progress(40)
-
-            status_text.text("⏳ Detecting visual artifacts...")
-            progress_bar.progress(60)
-
-            status_text.text("⏳ Processing NLP and watermark...")
-            progress_bar.progress(80)
-
-            status_text.text("⏳ Computing final risk scores...")
-            progress_bar.progress(90)
-
-            # Run optimized inference
-            payload = analyze_video_optimized(save_path, processed_dir)
+            # Run optimized inference with force_refresh support
+            payload = analyze_video_optimized(save_path, processed_dir, force_refresh=force_refresh)
 
             status_text.text("✅ Analysis complete!")
             progress_bar.progress(100)
 
             import time
 
-            time.sleep(0.5)
+            time.sleep(0.3)
             status_text.empty()
             progress_bar.empty()
+
+            if payload.get("from_cache"):
+                st.success("⚡ **Instant Result:** Retrieved directly from deduplicated cache (0.01s)")
 
             # Extract key data
             scoring = payload.get("scoring", {})
@@ -823,9 +818,10 @@ elif mode == "System Stats":
 
     st.markdown("### ⚙️ System Statistics")
 
-    col_stat1, col_stat2, col_stat3 = st.columns(3)
+    col_stat1, col_stat2, col_stat3, col_stat4 = st.columns(4)
 
     stats = get_optimization_stats()
+    vcache_stats = video_cache_manager.get_stats()
 
     with col_stat1:
         st.metric("Total Inferences Run", stats["total_inferences"])
@@ -836,9 +832,13 @@ elif mode == "System Stats":
         st.metric("Reprocessed", stats["inferences_recomputed"])
 
     with col_stat3:
+        st.metric("Unique Stored Videos", vcache_stats["total_stored_videos"])
+        st.metric("Deduplications Avoided", vcache_stats["duplicate_detections"])
+
+    with col_stat4:
         time_saved = stats["cache_hits"] * 30  # Assume 30 sec per inference
         st.metric("Time Saved (sec)", int(time_saved))
-        st.metric("Model Version", "LightweightArtifactCNN v1")
+        st.metric("Video Cache Size", f"{vcache_stats['total_size_mb']:.1f} MB")
 
     st.markdown("---")
     st.markdown("### 📊 Performance Insights")

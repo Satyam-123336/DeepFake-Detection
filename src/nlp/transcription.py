@@ -113,9 +113,35 @@ def _transcribe_with_energy_proxy(audio_path: Path) -> TranscriptResult:
 
     speech_segments = len(segment_durations)
     confidence = _clamp01(0.2 + 0.7 * voiced_ratio)
+
+    # Acoustic forensic analysis using librosa:
+    try:
+        # Pitch jitter tracking
+        f0 = librosa.yin(waveform, fmin=60, fmax=400, sr=sr)
+        f0_voiced = f0[f0 > 65]
+        pitch_jitter = float(np.std(f0_voiced) / (np.mean(f0_voiced) + 1e-6)) if len(f0_voiced) > 10 else 0.30
+    except Exception:
+        pitch_jitter = 0.30
+
+    try:
+        # Spectral Flatness (natural speech is harmonic < 0.08, vocoders/TTS have high noise > 0.12)
+        flatness_arr = librosa.feature.spectral_flatness(y=waveform, frame_length=frame_length, hop_length=hop_length)[0]
+        mean_flatness = float(np.mean(flatness_arr)) if flatness_arr.size else 0.035
+    except Exception:
+        mean_flatness = 0.035
+
+    try:
+        # Spectral Centroid
+        centroid_arr = librosa.feature.spectral_centroid(y=waveform, sr=sr, n_fft=frame_length, hop_length=hop_length)[0]
+        mean_centroid = float(np.mean(centroid_arr)) if centroid_arr.size else 1700.0
+    except Exception:
+        mean_centroid = 1700.0
+
     transcript_text = (
-        f"[speech_proxy] voiced_ratio={voiced_ratio:.3f}; "
-        f"segments={speech_segments}; duration={duration_seconds:.2f}s"
+        f"[acoustic_proxy] voiced_ratio={voiced_ratio:.3f}; "
+        f"segments={speech_segments}; duration={duration_seconds:.2f}s; "
+        f"pitch_jitter={pitch_jitter:.3f}; flatness={mean_flatness:.4f}; "
+        f"centroid={mean_centroid:.1f}Hz"
     )
 
     return TranscriptResult(

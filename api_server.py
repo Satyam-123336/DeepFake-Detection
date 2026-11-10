@@ -23,8 +23,14 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
 import uvicorn
 
-from src.pipeline.optimized_inference import analyze_video_optimized, get_optimization_stats
+from src.pipeline.optimized_inference import (
+    analyze_video_optimized,
+    get_optimization_stats,
+    _optimized_pipeline,
+    PIPELINE_VERSION,
+)
 from src.utils.cache_manager import get_cache_stats, clear_cache
+from src.utils.video_cache import video_cache_manager
 from src.utils.io import ensure_dir
 
 # ============================================================================
@@ -71,20 +77,11 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Add CORS middleware
+# Add CORS middleware - allow all origins for flexible local development and remote deployments
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        # Hugging Face Spaces (React frontend) — Satysam-26/RealityGuardAI
-        "https://satysam-26-realityguardai.hf.space",
-        "https://satysam-26-realityguardai.static.hf.space",
-        # Local development
-        "http://localhost:3000",
-        "http://localhost:8080",
-        "http://localhost:5173",
-        # Add your custom domain here if you have one
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -137,19 +134,26 @@ def generate_job_id() -> str:
     return str(uuid.uuid4())[:8]
 
 
-def create_job(filename: str) -> str:
+def create_job(
+    filename: str,
+    safe_filename: str | None = None,
+    job_id: str | None = None,
+    video_hash: str | None = None,
+) -> str:
     """Create new job entry and return job ID."""
-    job_id = generate_job_id()
-    jobs_db[job_id] = {
-        "id": job_id,
+    jid = job_id or generate_job_id()
+    jobs_db[jid] = {
+        "id": jid,
         "filename": filename,
+        "stored_filename": safe_filename or f"{jid}_{filename}",
+        "video_hash": video_hash,
         "status": "queued",
         "progress": 0,
         "created_at": datetime.now().isoformat(),
         "result": None,
         "error": None,
     }
-    return job_id
+    return jid
 
 
 def update_job(job_id: str, **kwargs) -> None:
@@ -200,16 +204,19 @@ async def get_stats() -> JSONResponse:
     """Get system statistics."""
     opt_stats = get_optimization_stats()
     cache_stats = get_cache_stats()
+    video_cache_stats = video_cache_manager.get_stats()
 
     return JSONResponse(
         {
             "optimization": opt_stats,
             "cache": cache_stats,
+            "video_cache": video_cache_stats,
             "uptime_seconds": int((datetime.now() - APP_START_TIME).total_seconds()),
             "active_jobs": len([j for j in jobs_db.values() if j["status"] in ["queued", "processing"]]),
             "services": {
                 "api": "active",
                 "cache": "active",
+                "video_cache": "active",
                 "pipeline": "active",
             },
         }
@@ -239,39 +246,97 @@ async def get_job_status(job_id: str) -> JSONResponse:
 
 
 @app.post("/api/analyze")
-async def analyze_video(file: UploadFile = File(...), background_tasks: BackgroundTasks = BackgroundTasks()) -> JSONResponse:
+async def analyze_video(
+    background_tasks: BackgroundTasks,
+    file: UploadFile = File(...),
+) -> JSONResponse:
     """
-    Upload and analyze video.
+    Upload and analyze video with deduplication and instant caching.
 
     Returns job ID for tracking progress.
     """
-    if not file.filename:
-        raise HTTPException(status_code=400, detail="Invalid filename")
+    if not file or not file.filename:
+        raise HTTPException(status_code=400, detail="Invalid video file: filename is required.")
 
-    # Create job
-    job_id = create_job(file.filename)
-    update_job(job_id, status="receiving", progress=10)
-
-    # BUG 3 FIX: Prefix with job_id to prevent silent filename collision when two
-    # users upload identically named files at the same time.
-    safe_filename = f"{job_id}_{file.filename}"
-    file_path = UPLOAD_DIR / safe_filename
     try:
-        with open(file_path, "wb") as f:
-            contents = await file.read()
-            f.write(contents)
+        contents = await file.read()
     except Exception as e:
-        update_job(job_id, status="failed", error=str(e))
-        raise HTTPException(status_code=500, detail=f"Failed to save file: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to read uploaded file: {str(e)}")
 
-    # BUG 2 FIX: background_tasks is always injected by FastAPI, never None.
-    background_tasks.add_task(_run_analysis, job_id, file_path)
+    if not contents or len(contents) == 0:
+        raise HTTPException(status_code=400, detail="Uploaded file is empty (0 bytes).")
+
+    try:
+        # Content-addressed deduplication: store unique video file once
+        video_path, video_hash, is_duplicate = video_cache_manager.store(contents, file.filename)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Video storage/cache error: {str(e)}")
+
+    # 1. In-flight deduplication: if identical video is already being analyzed, attach to existing job
+    for existing_id, existing_job in jobs_db.items():
+        if (
+            existing_job.get("video_hash") == video_hash
+            and existing_job.get("status") in ("queued", "processing", "receiving")
+        ):
+            return JSONResponse(
+                {
+                    "job_id": existing_id,
+                    "status": existing_job.get("status"),
+                    "message": "Duplicate video detected. Attached to active analysis job.",
+                    "from_cache": False,
+                    "duplicate_detected": True,
+                },
+                status_code=202,
+            )
+
+    # 2. Check persistent inference cache for instant hit
+    cache_key = f"inference_{video_hash}_v{PIPELINE_VERSION}"
+    cached_payload = _optimized_pipeline.persistent_cache.get(cache_key)
+
+    job_id = generate_job_id()
+    create_job(file.filename, safe_filename=video_path.name, job_id=job_id, video_hash=video_hash)
+
+    if cached_payload is not None:
+        _optimized_pipeline._cache_hits += 1
+        _optimized_pipeline._inference_count += 1
+        cached_payload_copy = dict(cached_payload)
+        cached_payload_copy["from_cache"] = True
+        cached_payload_copy["video_hash"] = video_hash
+        cached_payload_copy["is_duplicate"] = is_duplicate
+        result = {
+            "job_id": job_id,
+            "video_file": file.filename,
+            "video_hash": video_hash,
+            "completed_at": datetime.now().isoformat(),
+            "analysis": cached_payload_copy,
+            "risk_color": risk_to_color(cached_payload.get("scoring", {}).get("risk_level", "unknown")),
+            "from_cache": True,
+            "duplicate_detected": is_duplicate,
+        }
+        update_job(job_id, status="completed", progress=100, result=result)
+        return JSONResponse(
+            {
+                "job_id": job_id,
+                "status": "completed",
+                "message": "Video recognized from cache (deduplicated). Result ready immediately.",
+                "from_cache": True,
+                "duplicate_detected": is_duplicate,
+                "result": result,
+            },
+            status_code=200,
+        )
+
+    # 3. New video: schedule background analysis
+    update_job(job_id, status="queued", progress=10)
+    background_tasks.add_task(_run_analysis, job_id, video_path)
 
     return JSONResponse(
         {
             "job_id": job_id,
             "status": "queued",
             "message": f"Analysis queued. Check /api/jobs/{job_id} for status.",
+            "from_cache": False,
+            "duplicate_detected": is_duplicate,
         },
         status_code=202,
     )
@@ -279,6 +344,7 @@ async def analyze_video(file: UploadFile = File(...), background_tasks: Backgrou
 
 def _run_analysis(job_id: str, video_path: Path) -> None:
     """Background task to run analysis."""
+    payload = None
     try:
         update_job(job_id, status="processing", progress=20)
 
@@ -291,9 +357,12 @@ def _run_analysis(job_id: str, video_path: Path) -> None:
         result = {
             "job_id": job_id,
             "video_file": video_path.name,
+            "video_hash": payload.get("video_hash"),
             "completed_at": datetime.now().isoformat(),
             "analysis": payload,
             "risk_color": risk_to_color(payload.get("scoring", {}).get("risk_level", "unknown")),
+            "from_cache": payload.get("from_cache", False),
+            "duplicate_detected": payload.get("is_duplicate", False),
         }
 
         update_job(job_id, status="completed", progress=100, result=result)
@@ -301,16 +370,17 @@ def _run_analysis(job_id: str, video_path: Path) -> None:
     except Exception as e:
         update_job(job_id, status="failed", progress=0, error=str(e))
     finally:
-        # CLEANUP: Delete raw video and processed artifacts to prevent Render disk space runout
+        # CLEANUP: Delete uncompressed intermediate frames,
+        # PRESERVE deduplicated video file in data/video_cache
         try:
-            if video_path.exists():
-                video_path.unlink()
-            
-            # The processed dir is usually named based on stem and job_id
-            job_stem = video_path.stem.replace(f"{job_id}_", "") if video_path.stem.startswith(job_id) else video_path.stem
-            out_dir = PROCESSED_DIR / f"{job_stem}_{job_id[:8]}"
-            if out_dir.exists() and out_dir.is_dir():
-                shutil.rmtree(out_dir)
+            if payload and "preprocessing" in payload and "artifact_dir" in payload["preprocessing"]:
+                artifact_dir = Path(payload["preprocessing"]["artifact_dir"])
+                if artifact_dir.exists() and artifact_dir.is_dir():
+                    shutil.rmtree(artifact_dir)
+            else:
+                for d in PROCESSED_DIR.glob(f"{video_path.stem}*"):
+                    if d.is_dir():
+                        shutil.rmtree(d)
         except Exception as e:
             print(f"Cleanup failed for {job_id}: {e}")
 
@@ -318,45 +388,88 @@ def _run_analysis(job_id: str, video_path: Path) -> None:
 @app.post("/api/analyze-sync")
 async def analyze_video_sync(file: UploadFile = File(...)) -> JSONResponse:
     """
-    Synchronous analysis (blocks until complete).
+    Synchronous analysis with deduplication and instant caching.
 
     Use for smaller videos or UI integration.
     """
-    if not file.filename:
-        raise HTTPException(status_code=400, detail="Invalid filename")
-
-    file_path = UPLOAD_DIR / file.filename
+    if not file or not file.filename:
+        raise HTTPException(status_code=400, detail="Invalid video file: filename is required.")
 
     try:
-        with open(file_path, "wb") as f:
-            contents = await file.read()
-            f.write(contents)
+        contents = await file.read()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to read file: {str(e)}")
 
-        payload = analyze_video_optimized(file_path, PROCESSED_DIR)
+    if not contents or len(contents) == 0:
+        raise HTTPException(status_code=400, detail="Uploaded file is empty (0 bytes).")
+
+    try:
+        video_path, video_hash, is_duplicate = video_cache_manager.store(contents, file.filename)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Video storage/cache error: {str(e)}")
+
+    # Check cache first for instant sub-millisecond response
+    cache_key = f"inference_{video_hash}_v{PIPELINE_VERSION}"
+    cached_payload = _optimized_pipeline.persistent_cache.get(cache_key)
+
+    if cached_payload is not None:
+        _optimized_pipeline._cache_hits += 1
+        _optimized_pipeline._inference_count += 1
+        cached_payload_copy = dict(cached_payload)
+        cached_payload_copy["from_cache"] = True
+        cached_payload_copy["video_hash"] = video_hash
+        cached_payload_copy["is_duplicate"] = is_duplicate
+        return JSONResponse(
+            {
+                "success": True,
+                "video_file": file.filename,
+                "video_hash": video_hash,
+                "analysis": cached_payload_copy,
+                "risk_color": risk_to_color(cached_payload.get("scoring", {}).get("risk_level", "unknown")),
+                "from_cache": True,
+                "duplicate_detected": is_duplicate,
+            }
+        )
+
+    try:
+        # Offload CPU-heavy pipeline to threadpool so event loop is never blocked
+        payload = await asyncio.to_thread(analyze_video_optimized, video_path, PROCESSED_DIR)
 
         return JSONResponse(
             {
                 "success": True,
                 "video_file": file.filename,
+                "video_hash": video_hash,
                 "analysis": payload,
                 "risk_color": risk_to_color(payload.get("scoring", {}).get("risk_level", "unknown")),
+                "from_cache": payload.get("from_cache", False),
+                "duplicate_detected": is_duplicate,
             }
         )
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
+    finally:
+        # Cleanup intermediate processed frames, keeping cached video
+        try:
+            for d in PROCESSED_DIR.glob(f"{video_path.stem}*"):
+                if d.is_dir():
+                    shutil.rmtree(d)
+        except Exception:
+            pass
 
 
 # ============================================================================
-# CACHE MANAGEMENT ENDPOINTS
+# CACHE & VIDEO STORAGE MANAGEMENT ENDPOINTS
 # ============================================================================
 
 
 @app.post("/api/cache/clear")
 async def clear_all_cache() -> JSONResponse:
-    """Clear all caches."""
+    """Clear in-memory and persistent inference caches."""
     clear_cache()
-    return JSONResponse({"status": "cache cleared", "timestamp": datetime.now().isoformat()})
+    _optimized_pipeline.persistent_cache.clear()
+    return JSONResponse({"status": "all caches cleared", "timestamp": datetime.now().isoformat()})
 
 
 @app.get("/api/cache/stats")
@@ -364,6 +477,19 @@ async def cache_statistics() -> JSONResponse:
     """Get cache statistics."""
     stats = get_cache_stats()
     return JSONResponse(stats)
+
+
+@app.get("/api/videos/cache")
+async def get_video_cache_stats() -> JSONResponse:
+    """Get video deduplication and storage statistics."""
+    return JSONResponse(video_cache_manager.get_stats())
+
+
+@app.post("/api/videos/cache/clear")
+async def clear_video_cache() -> JSONResponse:
+    """Clear all stored deduplicated videos."""
+    video_cache_manager.clear()
+    return JSONResponse({"status": "video cache cleared", "timestamp": datetime.now().isoformat()})
 
 
 # ============================================================================
@@ -388,10 +514,15 @@ async def websocket_job_progress(websocket: WebSocket, job_id: str) -> None:
 
         # Poll for updates
         while True:
-            await websocket.send_json(jobs_db[job_id])
+            current_job = get_job(job_id)
+            if not current_job:
+                await websocket.send_json({"error": "Job no longer exists"})
+                break
+
+            await websocket.send_json(current_job)
 
             # Check if job is complete
-            if jobs_db[job_id]["status"] in ["completed", "failed"]:
+            if current_job["status"] in ["completed", "failed", "cancelled"]:
                 break
 
             # Rate limit: poll every 500ms
@@ -435,8 +566,9 @@ async def delete_job(job_id: str) -> JSONResponse:
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
 
-    # Delete uploaded file
-    file_path = UPLOAD_DIR / job["filename"]
+    # Delete uploaded file using stored safe filename
+    stored_name = job.get("stored_filename", job["filename"])
+    file_path = UPLOAD_DIR / stored_name
     if file_path.exists():
         file_path.unlink()
 
@@ -455,7 +587,8 @@ async def cleanup_old_jobs(days: int = 7) -> JSONResponse:
     for job_id, job in list(jobs_db.items()):
         created_at = datetime.fromisoformat(job["created_at"])
         if created_at < cutoff_time:
-            file_path = UPLOAD_DIR / job["filename"]
+            stored_name = job.get("stored_filename", job["filename"])
+            file_path = UPLOAD_DIR / stored_name
             if file_path.exists():
                 file_path.unlink()
             del jobs_db[job_id]
@@ -473,20 +606,22 @@ async def cleanup_old_jobs(days: int = 7) -> JSONResponse:
 # SERVE REACT FRONTEND
 # ============================================================================
 
-# This will be configured to serve the React frontend build
-
-
-@app.get("/")
-async def serve_root() -> JSONResponse:
-    """Serve API root."""
-    return JSONResponse(
-        {
-            "service": "DeepFake Detection API",
-            "version": "1.0.0",
-            "docs": "/docs",
-            "health": "/health",
-        }
-    )
+DIST_DIR = Path("frontend/dist")
+if DIST_DIR.exists() and (DIST_DIR / "index.html").exists():
+    app.mount("/", StaticFiles(directory=str(DIST_DIR), html=True), name="frontend")
+else:
+    @app.get("/")
+    async def serve_root() -> JSONResponse:
+        """Serve API root if frontend build is not present."""
+        return JSONResponse(
+            {
+                "service": "DeepFake Detection API",
+                "version": "1.0.0",
+                "docs": "/docs",
+                "health": "/health",
+                "note": "Frontend build not found at frontend/dist. Run 'npm run build' inside frontend/ to build UI.",
+            }
+        )
 
 
 # ============================================================================
@@ -495,15 +630,31 @@ async def serve_root() -> JSONResponse:
 
 
 @app.exception_handler(HTTPException)
-async def http_exception_handler(request, exc):
-    """Handle HTTP exceptions gracefully."""
+async def http_exception_handler(request: Request, exc: HTTPException) -> JSONResponse:
+    """Handle HTTP exceptions gracefully returning detail and error."""
     return JSONResponse(
         {
+            "detail": exc.detail,
             "error": exc.detail,
             "status_code": exc.status_code,
             "timestamp": datetime.now().isoformat(),
         },
         status_code=exc.status_code,
+    )
+
+
+@app.exception_handler(Exception)
+async def unhandled_exception_handler(request: Request, exc: Exception) -> JSONResponse:
+    """Catch-all error handler for unexpected backend failures."""
+    err_str = str(exc) or "Internal server error"
+    return JSONResponse(
+        {
+            "detail": err_str,
+            "error": err_str,
+            "status_code": 500,
+            "timestamp": datetime.now().isoformat(),
+        },
+        status_code=500,
     )
 
 

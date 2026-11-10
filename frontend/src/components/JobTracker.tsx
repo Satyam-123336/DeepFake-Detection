@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import AnalysisResults from "./AnalysisResults";
+import { API_BASE } from "../apiConfig";
 import "./JobTracker.css";
 
 interface JobTrackerProps {
@@ -34,7 +35,7 @@ function formatElapsed(seconds: number) {
 }
 
 export default function JobTracker({ jobId, onReset }: JobTrackerProps) {
-  const apiBase = (import.meta as any).env?.VITE_API_BASE_URL || "http://localhost:8000";
+  const apiBase = API_BASE;
   const [job, setJob] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -179,8 +180,18 @@ export default function JobTracker({ jobId, onReset }: JobTrackerProps) {
               </div>
               <div className="summary-metric">
                 <div className="summary-metric-label">Duration</div>
-                <div className="summary-metric-value" style={{ color: "var(--text-secondary)" }}>{formatElapsed(elapsed)}</div>
+                <div className="summary-metric-value" style={{ color: "var(--text-secondary)" }}>
+                  {job.result?.from_cache ? "⚡ Instant (<0.1s)" : formatElapsed(elapsed)}
+                </div>
               </div>
+              {job.result?.from_cache && (
+                <div className="summary-metric">
+                  <div className="summary-metric-label">Cache / Dedup</div>
+                  <div className="summary-metric-value" style={{ color: "#00d4aa", fontWeight: 700 }}>
+                    ⚡ Hit (No Duplicates)
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -211,6 +222,8 @@ export default function JobTracker({ jobId, onReset }: JobTrackerProps) {
             ["Created",  job.created_at ? new Date(job.created_at).toLocaleTimeString() : "-"],
             ["Status",   job.status],
             ["Progress", `${progress}%`],
+            ["Cache Hit", job.result?.from_cache ? "⚡ Yes (Instant)" : "No"],
+            ["Deduplicated", job.result?.duplicate_detected ? "Yes" : "No"],
           ].map(([k, v]) => (
             <div key={k} className="info-kv-row">
               <span className="info-kv-key">{k}</span>

@@ -99,9 +99,9 @@ class RuntimeCache:
             self._current_size_bytes -= size
 
     def _evict_if_necessary(self) -> None:
-        """Evict LRU entries if cache exceeds size limit."""
+        """Evict oldest LRU entries if cache exceeds size limit."""
         while self._current_size_bytes > self._max_size_bytes and self._cache:
-            lru_key = min(self._cache.keys(), key=lambda k: self._cache[k].hit_count)
+            lru_key = min(self._cache.keys(), key=lambda k: self._cache[k].timestamp)
             size = self._cache[lru_key].size_bytes
             del self._cache[lru_key]
             self._current_size_bytes -= size
@@ -141,7 +141,7 @@ class PersistentCache:
 
     def _data_path(self, key: str) -> Path:
         """Get path for cache data file."""
-        return self.cache_dir / f"{key}.pkl"
+        return self.cache_dir / f"{key}.json"
 
     def set(self, key: str, value: Any, ttl_seconds: float = 86400) -> None:
         """Store value to disk with TTL metadata."""
@@ -149,14 +149,14 @@ class PersistentCache:
         metadata_path = self._metadata_path(key)
 
         try:
-            with open(data_path, "wb") as f:
-                pickle.dump(value, f)
+            with open(data_path, "w", encoding="utf-8") as f:
+                json.dump(value, f)
 
             metadata = {
                 "timestamp": time.time(),
                 "ttl_seconds": ttl_seconds,
             }
-            with open(metadata_path, "w") as f:
+            with open(metadata_path, "w", encoding="utf-8") as f:
                 json.dump(metadata, f)
         except Exception as e:
             print(f"Warning: Failed to cache to disk: {e}")
@@ -166,21 +166,29 @@ class PersistentCache:
         data_path = self._data_path(key)
         metadata_path = self._metadata_path(key)
 
-        if not data_path.exists() or not metadata_path.exists():
+        # Check for JSON data file first, with backward compatibility for legacy .pkl
+        legacy_pkl = self.cache_dir / f"{key}.pkl"
+        target_path = data_path if data_path.exists() else (legacy_pkl if legacy_pkl.exists() else None)
+
+        if target_path is None or not metadata_path.exists():
             return None
 
         try:
-            with open(metadata_path, "r") as f:
+            with open(metadata_path, "r", encoding="utf-8") as f:
                 metadata = json.load(f)
 
             age = time.time() - metadata["timestamp"]
             if age > metadata["ttl_seconds"]:
-                data_path.unlink(missing_ok=True)
+                target_path.unlink(missing_ok=True)
                 metadata_path.unlink(missing_ok=True)
                 return None
 
-            with open(data_path, "rb") as f:
-                return pickle.load(f)
+            if target_path.suffix == ".json":
+                with open(target_path, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            else:
+                with open(target_path, "rb") as f:
+                    return pickle.load(f)
         except Exception as e:
             print(f"Warning: Failed to retrieve cache from disk: {e}")
             return None

@@ -19,6 +19,11 @@ node_modules/
 **/node_modules/
 frontend/dist/
 
+# Documents & Reports
+*.docx
+*.pdf
+docs/
+
 # Scratch / temp
 scratch/
 

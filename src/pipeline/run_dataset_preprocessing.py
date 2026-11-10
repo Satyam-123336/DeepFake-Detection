@@ -10,6 +10,7 @@ from pathlib import Path
 from src.data.dataset_manifest import read_video_records_csv
 from src.pipeline.run_preprocessing import run_preprocessing
 from src.pipeline.run_visual import run_visual_analysis
+from src.preprocessing.face_detector import FaceDetector
 from src.utils.io import ensure_dir
 
 _FACE_CSV_FIELDS = [
@@ -101,6 +102,7 @@ def preprocess_manifest_to_faces(
         )
 
     # Open CSV once and write incrementally so progress is saved even if interrupted.
+    shared_detector = FaceDetector()
     file_exists = face_manifest_path.exists() and face_manifest_path.stat().st_size > 0
     write_mode = "a" if file_exists else "w"
     with face_manifest_path.open(write_mode, newline="", encoding="utf-8") as csv_handle:
@@ -184,6 +186,7 @@ def preprocess_manifest_to_faces(
                     visual_result = run_visual_analysis(
                         key_frame.image_path,
                         preprocessing_result.artifact_dir / "faces",
+                        detector=shared_detector,
                     )
                 except Exception as exc:
                     print(f"  frame {key_frame.frame_index} skipped: {exc}", flush=True)

@@ -4,6 +4,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from "recharts";
 import axios from "axios";
+import { API_BASE } from "../apiConfig";
 import "./SystemStats.css";
 
 // Reads live CSS variable values so charts adapt to light/dark theme
@@ -38,7 +39,7 @@ function formatDuration(seconds: number) {
 
 
 export default function SystemStats() {
-  const apiBase = (import.meta as any).env?.VITE_API_BASE_URL || "http://localhost:8000";
+  const apiBase = API_BASE;
   const [stats, setStats] = useState<any>(null);
   const [history, setHistory] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -97,6 +98,7 @@ export default function SystemStats() {
 
   const opt  = stats?.optimization || {};
   const cache = stats?.cache || {};
+  const vcache = stats?.video_cache || {};
   const svc  = stats?.services || {};
 
   const loadBreakdown = [
@@ -304,6 +306,21 @@ export default function SystemStats() {
               ["Queue Depth",  Math.max(0, (stats?.active_jobs || 0) - 1)],
               ["Uptime",       formatDuration(stats?.uptime_seconds || 0)],
               ["Total Runs",   opt.total_inferences || 0],
+            ].map(([k, v]) => (
+              <div key={String(k)} className="stats-kv-row">
+                <span className="stats-kv-key">{k}</span>
+                <span className="stats-kv-val">{v}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="stats-detail-card">
+            <div className="stats-detail-title">Video Storage & Dedup</div>
+            {[
+              ["Unique Stored", vcache.total_stored_videos || 0],
+              ["Storage Used",  `${(vcache.total_size_mb || 0).toFixed(1)} MB`],
+              ["Deduplications", vcache.duplicate_detections || 0],
+              ["Max Capacity",  `${vcache.max_size_mb_capacity || 2048} MB`],
             ].map(([k, v]) => (
               <div key={String(k)} className="stats-kv-row">
                 <span className="stats-kv-key">{k}</span>

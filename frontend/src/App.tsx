@@ -3,6 +3,7 @@ import VideoUploader from "./components/VideoUploader";
 import AnalysisResults from "./components/AnalysisResults";
 import JobTracker from "./components/JobTracker";
 import SystemStats from "./components/SystemStats";
+import { API_BASE } from "./apiConfig";
 import "./App.css";
 
 type AppMode = "analyze" | "results" | "operations" | "analytics";
@@ -18,7 +19,7 @@ interface AnalysisData {
 }
 
 export default function App() {
-  const apiBase = (import.meta as any).env?.VITE_API_BASE_URL || "http://localhost:8000";
+  const apiBase = API_BASE;
   const [mode, setMode] = useState<AppMode>("analyze");
   const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
   const [jobId, setJobId] = useState<string | null>(null);

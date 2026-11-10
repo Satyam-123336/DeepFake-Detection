@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
+import { API_BASE } from "../apiConfig";
 import "./VideoUploader.css";
 
 interface VideoUploaderProps {
@@ -17,7 +18,7 @@ const MODULES = [
 ];
 
 export default function VideoUploader({ onAnalysisComplete, onJobCreated, backendStatus }: VideoUploaderProps) {
-  const apiBase = (import.meta as any).env?.VITE_API_BASE_URL || "http://localhost:8000";
+  const apiBase = API_BASE;
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string>("");
   const [loading, setLoading] = useState(false);
@@ -25,6 +26,7 @@ export default function VideoUploader({ onAnalysisComplete, onJobCreated, backen
   const [syncMode, setSyncMode] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const validate = (f: File): string => {
     if (!f.type.startsWith("video/")) return "Please select a valid video file (MP4, AVI, MOV, MKV, WebM).";
@@ -36,10 +38,13 @@ export default function VideoUploader({ onAnalysisComplete, onJobCreated, backen
     const err = validate(f);
     if (err) { setError(err); return; }
     setError("");
+    // Revoke previous object URL if any
+    if (preview && preview.startsWith("blob:")) {
+      URL.revokeObjectURL(preview);
+    }
     setFile(f);
-    const reader = new FileReader();
-    reader.onload = () => setPreview(reader.result as string);
-    reader.readAsDataURL(f);
+    const objectUrl = URL.createObjectURL(f);
+    setPreview(objectUrl);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,6 +65,10 @@ export default function VideoUploader({ onAnalysisComplete, onJobCreated, backen
     if (!file) { setError("Please select a video file first."); return; }
     setLoading(true);
     setError("");
+
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -67,6 +76,7 @@ export default function VideoUploader({ onAnalysisComplete, onJobCreated, backen
       const response = await axios.post(endpoint, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         timeout: 240000,
+        signal: controller.signal,
       });
       if (syncMode) {
         onAnalysisComplete(response.data);
@@ -74,20 +84,43 @@ export default function VideoUploader({ onAnalysisComplete, onJobCreated, backen
         onJobCreated(response.data.job_id);
       }
     } catch (err: any) {
-      if (axios.isAxiosError(err) && !err.response) {
-        setError(`Cannot reach backend at ${apiBase}. Ensure the API server is running.`);
-      } else {
-        setError(err.response?.data?.detail || "Upload failed. Please retry.");
+      if (axios.isCancel(err) || err.name === "CanceledError") {
+        // Intentionally cancelled by user via Clear button
+        return;
       }
+      let errorMsg = "";
+      if (axios.isAxiosError(err)) {
+        if (!err.response) {
+          const target = apiBase || (typeof window !== "undefined" ? window.location.origin : "http://localhost:8000");
+          errorMsg = `Cannot connect to backend (${err.message}). Ensure the API server is running at ${target}.`;
+        } else if (typeof err.response.data === "string") {
+          errorMsg = err.response.data || `Server error (${err.response.status}): ${err.message}`;
+        } else if (err.response.data) {
+          const d = err.response.data;
+          errorMsg = d.detail || d.error || d.message || `Server responded with status ${err.response.status}`;
+        }
+      } else if (err instanceof Error) {
+        errorMsg = err.message;
+      }
+      setError(errorMsg || "Upload failed. Please check backend connection and retry.");
     } finally {
       setLoading(false);
+      abortControllerRef.current = null;
     }
   };
 
   const handleReset = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    if (preview && preview.startsWith("blob:")) {
+      URL.revokeObjectURL(preview);
+    }
     setFile(null);
     setPreview("");
     setError("");
+    setLoading(false);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -175,7 +208,27 @@ export default function VideoUploader({ onAnalysisComplete, onJobCreated, backen
             </div>
           </div>
         ) : (
-          <div className="preview-container">
+          <div className="preview-container" style={{ position: "relative" }}>
+            <button
+              id="btn-remove-video"
+              className="btn btn-secondary btn-sm"
+              onClick={handleReset}
+              title="Remove selected video"
+              style={{
+                position: "absolute",
+                top: 12,
+                right: 12,
+                zIndex: 10,
+                background: "rgba(15, 23, 42, 0.85)",
+                border: "1px solid rgba(255, 255, 255, 0.2)",
+                padding: "4px 10px",
+                fontSize: "0.8rem",
+                borderRadius: "6px",
+                cursor: "pointer",
+              }}
+            >
+              ✕ Remove
+            </button>
             <video src={preview} controls className="preview-video" />
             <div className="preview-meta">
               <span className="preview-filename">{file?.name}</span>
@@ -184,11 +237,31 @@ export default function VideoUploader({ onAnalysisComplete, onJobCreated, backen
           </div>
         )}
 
-        {/* Error */}
+        {/* Error banner with dismiss and reset options */}
         {error && (
-          <div className="alert-banner danger upload-alert">
-            <span>⛔</span>
-            <span>{error}</span>
+          <div className="alert-banner danger upload-alert" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, flex: 1 }}>
+              <span>⛔</span>
+              <span>{error}</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <button
+                id="btn-dismiss-error"
+                className="btn btn-secondary btn-sm"
+                onClick={() => setError("")}
+                style={{ padding: "4px 10px", fontSize: "0.8rem" }}
+              >
+                ✕ Dismiss
+              </button>
+              <button
+                id="btn-reset-after-error"
+                className="btn btn-secondary btn-sm"
+                onClick={handleReset}
+                style={{ padding: "4px 10px", fontSize: "0.8rem" }}
+              >
+                ↺ Clear All
+              </button>
+            </div>
           </div>
         )}
 
@@ -234,18 +307,31 @@ export default function VideoUploader({ onAnalysisComplete, onJobCreated, backen
                   `🔍 Submit for Analysis`
                 )}
               </button>
-              <button id="btn-reset" className="btn btn-secondary" onClick={handleReset}>
-                ↺ Clear
+              <button
+                id="btn-reset"
+                className="btn btn-secondary"
+                onClick={handleReset}
+                title={loading ? "Cancel upload and clear" : "Clear selection"}
+              >
+                {loading ? "✕ Cancel" : "↺ Clear"}
               </button>
             </>
           ) : (
-            <button
-              id="btn-browse"
-              className="btn btn-primary"
-              onClick={() => fileInputRef.current?.click()}
-            >
-              📁 Browse Files
-            </button>
+            <>
+              <button
+                id="btn-browse"
+                className="btn btn-primary"
+                onClick={() => fileInputRef.current?.click()}
+                style={{ flex: error ? 1 : undefined }}
+              >
+                📁 Browse Files
+              </button>
+              {error && (
+                <button id="btn-clear-error-state" className="btn btn-secondary" onClick={handleReset}>
+                  ↺ Clear
+                </button>
+              )}
+            </>
           )}
         </div>
 

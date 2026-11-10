@@ -39,6 +39,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--custom-fake-dir", default=None, help="Custom local directory of fake videos to ingest.")
     parser.add_argument("--max-real", type=int, default=None, help="Optional maximum real videos to ingest per source.")
     parser.add_argument("--max-fake", type=int, default=None, help="Optional maximum fake videos to ingest per source.")
+    parser.add_argument("--force-refresh", action="store_true", help="Bypass cache and force re-analysis.")
     return parser
 
 
@@ -46,12 +47,16 @@ def main() -> None:
     args = build_parser().parse_args()
 
     if args.mode == "analyze-video":
-        from src.pipeline.run_full_pipeline import run_phase_four_pipeline
+        from src.pipeline.optimized_inference import analyze_video_optimized
 
         if not args.video:
             raise ValueError("--video is required when --mode analyze-video is used.")
-        result = run_phase_four_pipeline(Path(args.video), Path(args.output_dir))
-        print(result.to_dict())
+        result_dict = analyze_video_optimized(
+            Path(args.video),
+            Path(args.output_dir),
+            force_refresh=args.force_refresh,
+        )
+        print(result_dict)
         return
 
     if args.mode == "prepare-dataset":
